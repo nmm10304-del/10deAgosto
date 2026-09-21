@@ -543,6 +543,8 @@
       width: 100%;
       text-align: center;
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
       transform: scale(0.9);
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -553,7 +555,7 @@
 
     .modal-img-wrap {
       width: 100%;
-      height: 380px;
+      height: 360px;
       border-radius: 8px;
       overflow: hidden;
       margin-bottom: 15px;
@@ -607,6 +609,26 @@
 
     .modal-edit-trigger:hover {
       background: #fde68a;
+    }
+
+    /* PREVIEW DE IMAGEN EN EDICIÓN */
+    .edit-img-preview-box {
+      width: 100%;
+      height: 160px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 15px;
+      border: 2px dashed #d4c3aa;
+      background: #faf7f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .edit-img-preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* FORMULARIOS */
@@ -761,20 +783,36 @@
       <div class="polaroid-date" id="m-date" style="margin-bottom: 10px;"></div>
       <p class="modal-desc" id="m-desc"></p>
       <button class="modal-edit-trigger" id="btnEditInsideModal">
-        ✏️ Editar este recuerdo
+        ✏️ Editar foto o texto
       </button>
     </div>
   </div>
 
-  <!-- MODAL DE EDICIÓN DE TEXTOS (ANTES O DESPUÉS DEL CLICK) -->
+  <!-- MODAL DE EDICIÓN (IMAGEN + TEXTO) -->
   <div class="modal" id="editModal">
     <div class="modal-content" style="max-width: 480px;">
       <button class="modal-close" id="closeEditModal">&times;</button>
-      <h3 style="color:#2b1a03; font-family:'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 20px;">
-        ✏️ Editar Texto del Recuerdo
+      <h3 style="color:#2b1a03; font-family:'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 15px;">
+        ✏️ Editar Foto y Texto
       </h3>
       
       <input type="hidden" id="edit-id" />
+
+      <!-- Vista previa de la foto actual -->
+      <label style="display:block; font-size:0.8rem; color:#4a3e2d; margin-bottom:5px; font-weight:500; text-align:left;">Foto Actual / Vista Previa:</label>
+      <div class="edit-img-preview-box">
+        <img id="edit-preview-img" src="" alt="Vista previa">
+      </div>
+
+      <div class="form-group">
+        <label>Cambiar foto desde tu dispositivo:</label>
+        <input type="file" id="edit-file" accept="image/*" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>O cambiar pegando un enlace de imagen (URL):</label>
+        <input type="url" id="edit-url" class="form-input" placeholder="https://..." />
+      </div>
 
       <div class="form-group">
         <label>Título o Frase (Letra Manuscrita):</label>
@@ -788,7 +826,7 @@
 
       <div class="form-group">
         <label>Dedicatoria / Lo que sentiste:</label>
-        <textarea id="edit-desc" class="form-input" rows="4"></textarea>
+        <textarea id="edit-desc" class="form-input" rows="3"></textarea>
       </div>
 
       <button class="kiss-btn" id="btnSaveEdit" style="width:100%;">Guardar Cambios ✨</button>
@@ -834,7 +872,7 @@
 
   <script>
     /* ==========================================================
-       DATOS: FOTOS CENTRADAS EN "NUESTROS MOMENTOS" (GAMES, CAFÉ, ETC)
+       DATOS INICIALES
     ========================================================== */
     const initialPhotos = [
       {
@@ -842,7 +880,7 @@
         title: 'Libre y Hermosa',
         date: 'CADA AMANECER',
         desc: 'Nuestras tardes de risas, jugando juntos, donde el tiempo pasa volando y el único premio que me importa es verte feliz.',
-        img: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=800&q=80', // Mando gamer
+        img: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=800&q=80',
         liked: true
       },
       {
@@ -850,7 +888,7 @@
         title: 'Tu sonrisa que ilumina',
         date: 'SEPTIEMBRE 2026',
         desc: 'Así como los girasoles buscan la luz del sol, mis ojos siempre te buscan a ti entre cualquier multitud.',
-        img: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80', // Girasol
+        img: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80',
         liked: true
       },
       {
@@ -858,7 +896,7 @@
         title: 'La dulzura de tu abrazo',
         date: 'PARA SIEMPRE',
         desc: 'Mirar el cielo estrellado a tu lado y sentir que todo en el universo encaja en su lugar.',
-        img: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80', // Noche estrellada
+        img: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
         liked: false
       },
       {
@@ -866,7 +904,7 @@
         title: 'Tardes de Café y Charlas',
         date: 'NUESTRO LUGAR SECRETO',
         desc: 'Un café caliente y horas de plática que se sienten como minutos. Contigo no existe el aburrimiento.',
-        img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80', // Café cómplice
+        img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80',
         liked: true
       },
       {
@@ -874,7 +912,7 @@
         title: 'Flores Amarillas Para Ti',
         date: 'CADA SEPTIEMBRE',
         desc: 'Un ramo entero de amor para recordarte lo radiante que eres en mi vida.',
-        img: 'https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=80', // Tulipanes amarillos
+        img: 'https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=80',
         liked: true
       },
       {
@@ -882,7 +920,7 @@
         title: 'Caminando de la Mano',
         date: 'EL MEJOR CAMINO',
         desc: 'No importa a dónde vayamos, mi destino favorito siempre es a tu lado.',
-        img: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80', // Manos tomadas
+        img: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80',
         liked: true
       }
     ];
@@ -891,7 +929,7 @@
     let activeViewingId = null;
 
     /* ==========================================================
-       RENDERIZADO DEL ÁLBUM POLAROID
+       RENDERIZADO DE POLAROIDS
     ========================================================== */
     const albumGrid = document.getElementById('albumGrid');
 
@@ -908,8 +946,8 @@
           <div class="washi-tape"></div>
           
           <div class="card-actions">
-            <!-- BOTÓN EDITAR ANTES DE DAR CLICK -->
-            <button class="action-icon-btn edit-btn" data-id="${p.id}" title="Editar texto de esta foto">
+            <!-- BOTÓN EDITAR FOTO/TEXTO -->
+            <button class="action-icon-btn edit-btn" data-id="${p.id}" title="Editar foto o texto">
               <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
             </button>
             <!-- BOTÓN LIKE -->
@@ -929,7 +967,6 @@
           </div>
         `;
 
-        // 3D Tilt
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
@@ -948,7 +985,7 @@
         albumGrid.appendChild(card);
       });
 
-      // Evento Editar desde la tarjeta (antes de hacer click a la foto)
+      // Listener Editar
       document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -957,7 +994,7 @@
         });
       });
 
-      // Evento Like
+      // Listener Like
       document.querySelectorAll('.like-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -978,7 +1015,7 @@
     }
 
     /* ==========================================================
-       MODAL DE VISTA DETALLADA
+       MODAL DE VISTA (LIGHTBOX)
     ========================================================== */
     const viewModal = document.getElementById('viewModal');
     const mImg = document.getElementById('m-img');
@@ -1001,21 +1038,23 @@
     document.getElementById('closeViewModal').onclick = () => viewModal.classList.remove('active');
     viewModal.onclick = (e) => { if (e.target === viewModal) viewModal.classList.remove('active'); };
 
-    // Editar desde adentro del modal
     btnEditInsideModal.onclick = () => {
-      if (activeViewingId) {
-        openEditModal(activeViewingId);
-      }
+      if (activeViewingId) openEditModal(activeViewingId);
     };
 
     /* ==========================================================
-       MODAL DE EDICIÓN DE TEXTO
+       MODAL DE EDICIÓN: IMAGEN + TEXTOS
     ========================================================== */
     const editModal = document.getElementById('editModal');
     const editId = document.getElementById('edit-id');
     const editTitle = document.getElementById('edit-title');
     const editDate = document.getElementById('edit-date');
     const editDesc = document.getElementById('edit-desc');
+    const editFile = document.getElementById('edit-file');
+    const editUrl = document.getElementById('edit-url');
+    const editPreviewImg = document.getElementById('edit-preview-img');
+
+    let currentEditedBase64 = null;
 
     function openEditModal(id) {
       const p = photos.find(item => item.id === id);
@@ -1024,8 +1063,33 @@
       editTitle.value = p.title;
       editDate.value = p.date;
       editDesc.value = p.desc;
+      editUrl.value = '';
+      editFile.value = '';
+      currentEditedBase64 = null;
+      editPreviewImg.src = p.img; // Mostrar foto actual
+
       editModal.classList.add('active');
     }
+
+    // Previsualizar si sube archivo desde el dispositivo
+    editFile.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          currentEditedBase64 = evt.target.result;
+          editPreviewImg.src = currentEditedBase64;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Previsualizar si escribe o pega URL
+    editUrl.addEventListener('input', function() {
+      if (editUrl.value.trim().length > 5) {
+        editPreviewImg.src = editUrl.value.trim();
+      }
+    });
 
     document.getElementById('closeEditModal').onclick = () => editModal.classList.remove('active');
     editModal.onclick = (e) => { if (e.target === editModal) editModal.classList.remove('active'); };
@@ -1037,11 +1101,20 @@
         target.title = editTitle.value.trim() || 'Nuestro Momento';
         target.date = editDate.value.trim() || 'Para Siempre';
         target.desc = editDesc.value.trim() || 'Un instante que guardo en el corazón.';
+
+        // Si se subió o cambió la imagen:
+        if (currentEditedBase64) {
+          target.img = currentEditedBase64;
+        } else if (editUrl.value.trim()) {
+          target.img = editUrl.value.trim();
+        }
+
         savePhotos();
         renderAlbum();
 
-        // Si el visor ampliado está abierto, refrescar sus textos
+        // Si la foto estaba abierta en el modal ampliado, actualizarla en vivo
         if (viewModal.classList.contains('active') && activeViewingId === id) {
+          mImg.src = target.img;
           mCaption.innerText = target.title;
           mDate.innerText = target.date;
           mDesc.innerText = target.desc;
