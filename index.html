@@ -366,12 +366,8 @@
       font-size: 0.75rem;
       padding: 4px 10px;
       border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
 
-    /* BOTONES SUPERIORES DE LA TARJETA (CAMBIAR FOTO, EDITAR TEXTO, LIKE) */
     .card-actions {
       position: absolute;
       top: 10px;
@@ -493,7 +489,7 @@
 
     .letter-signature {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       color: #fbbf24;
       margin-top: 15px;
     }
@@ -515,6 +511,33 @@
     .kiss-btn:hover {
       transform: translateY(-3px) scale(1.03);
       box-shadow: 0 15px 35px rgba(245, 158, 11, 0.6);
+    }
+
+    /* BARRA INFERIOR DE RESPALDO / RESTAURACIÓN */
+    .backup-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px dashed rgba(245, 158, 11, 0.2);
+      flex-wrap: wrap;
+    }
+
+    .backup-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #d1b894;
+      font-size: 0.75rem;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .backup-btn:hover {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fde68a;
     }
 
     /* MODALES */
@@ -673,8 +696,8 @@
 
   <canvas id="fx-canvas"></canvas>
 
-  <!-- INPUT OCULTO PARA CAMBIO DIRECTO DE FOTO DESDE LA TARJETA -->
   <input type="file" id="direct-file-input" accept="image/*" style="display: none;" />
+  <input type="file" id="restore-json-input" accept=".json" style="display: none;" />
 
   <!-- PANTALLA INICIAL DE REGALO -->
   <div id="gift-screen">
@@ -756,7 +779,7 @@
     <!-- GRID DE POLAROIDS -->
     <div class="album-grid" id="albumGrid"></div>
 
-    <!-- CARTA DE AMOR -->
+    <!-- CARTA DE AMOR ACTUALIZADA -->
     <section class="love-letter-section">
       <div class="wax-seal" id="sealAction" title="Toca el sello">
         <svg viewBox="0 0 24 24">
@@ -765,19 +788,32 @@
       </div>
       <h2 class="letter-title">¿Por qué flores amarillas para ti?</h2>
       <p class="letter-body">
-        Las flores amarillas no son una simple tradición: simbolizan la luz que trajiste a mi vida, la complicidad de cada risa jugando juntos, cada café compartido y la promesa de elegirte todos los días.
+        Las flores amarillas simbolizan la luz que trajiste a mi vida, la complicidad de cada risa jugando juntos, cada café compartido y la promesa de elegirte todos los días.
         <br><br>
         Cada foto en este álbum guarda un pedacito de nuestra historia. Gracias por ser mi persona favorita y la dueña de mi corazón.
       </p>
-      <div class="letter-signature">Por y para siempre, Yo 💛</div>
+      <div class="letter-signature">Por y para siempre, Andy 💛</div>
       <div>
         <button class="kiss-btn" id="showerLove">¡Presiona aquí si tú también me amas! ✨</button>
       </div>
     </section>
 
+    <!-- PIE CON BOTONES DE RESPALDO/RESTAURACIÓN -->
+    <div class="backup-footer">
+      <button class="backup-btn" id="btnExportBackup" title="Descarga una copia con todas tus fotos y dedicatorias">
+        💾 Respaldar Álbum (Guardar archivo)
+      </button>
+      <button class="backup-btn" id="btnImportBackup" title="Carga un respaldo previo">
+        📥 Restaurar Álbum
+      </button>
+      <button class="backup-btn" id="btnCopyData" title="Copia el texto de tus fotos para pegarlo en el chat">
+        📋 Copiar datos para el chat
+      </button>
+    </div>
+
   </div>
 
-  <!-- MODAL DE VISTA DETALLADA (LIGHTBOX) -->
+  <!-- MODAL DE VISTA DETALLADA -->
   <div class="modal" id="viewModal">
     <div class="modal-content">
       <button class="modal-close" id="closeViewModal">&times;</button>
@@ -793,7 +829,7 @@
     </div>
   </div>
 
-  <!-- MODAL DE EDICIÓN (IMAGEN + TEXTO) -->
+  <!-- MODAL DE EDICIÓN -->
   <div class="modal" id="editModal">
     <div class="modal-content" style="max-width: 480px;">
       <button class="modal-close" id="closeEditModal">&times;</button>
@@ -803,7 +839,6 @@
       
       <input type="hidden" id="edit-id" />
 
-      <!-- Vista previa de la foto actual -->
       <label style="display:block; font-size:0.8rem; color:#4a3e2d; margin-bottom:5px; font-weight:500; text-align:left;">Foto Actual / Vista Previa:</label>
       <div class="edit-img-preview-box">
         <img id="edit-preview-img" src="" alt="Vista previa">
@@ -876,9 +911,6 @@
   </div>
 
   <script>
-    /* ==========================================================
-       DATOS INICIALES (MOMENTOS CON PLAYSTATION / GAMING, CAFÉ, FLORES)
-    ========================================================== */
     const initialPhotos = [
       {
         id: 1,
@@ -934,9 +966,7 @@
     let activeViewingId = null;
     let directChangeTargetId = null;
 
-    /* ==========================================================
-       RENDERIZADO DE POLAROIDS CON CAMBIO RÁPIDO DE FOTO
-    ========================================================== */
+    /* RENDERIZADO POLAROIDS */
     const albumGrid = document.getElementById('albumGrid');
 
     function renderAlbum() {
@@ -952,17 +982,12 @@
           <div class="washi-tape"></div>
           
           <div class="card-actions">
-            <!-- 1. CAMBIAR FOTO DIRECTAMENTE (CÁMARA) -->
-            <button class="action-icon-btn change-pic-btn" data-id="${p.id}" title="Cambiar imagen de esta tarjeta">
+            <button class="action-icon-btn change-pic-btn" data-id="${p.id}" title="Cambiar imagen">
               <svg viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
             </button>
-
-            <!-- 2. EDITAR TEXTO (LÁPIZ) -->
-            <button class="action-icon-btn edit-btn" data-id="${p.id}" title="Editar texto y dedicatoria">
+            <button class="action-icon-btn edit-btn" data-id="${p.id}" title="Editar texto">
               <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
             </button>
-
-            <!-- 3. CORAZÓN / LIKE -->
             <button class="action-icon-btn like-btn ${p.liked ? 'liked' : ''}" data-id="${p.id}" title="Me encanta">
               <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </button>
@@ -997,7 +1022,6 @@
         albumGrid.appendChild(card);
       });
 
-      // Botón 📷: Abrir selector de archivos al instante
       document.querySelectorAll('.change-pic-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -1006,16 +1030,13 @@
         });
       });
 
-      // Botón ✏️: Abrir editor de textos
       document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          const id = parseInt(btn.dataset.id);
-          openEditModal(id);
+          openEditModal(parseInt(btn.dataset.id));
         });
       });
 
-      // Botón ❤️: Like
       document.querySelectorAll('.like-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -1031,7 +1052,6 @@
       });
     }
 
-    // Manejar el archivo seleccionado directamente desde la tarjeta
     document.getElementById('direct-file-input').addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file && directChangeTargetId) {
@@ -1047,16 +1067,14 @@
         };
         reader.readAsDataURL(file);
       }
-      this.value = ''; // Reset
+      this.value = '';
     });
 
     function savePhotos() {
       localStorage.setItem('yellow_flora_nuestros_momentos', JSON.stringify(photos));
     }
 
-    /* ==========================================================
-       MODAL DE VISTA (LIGHTBOX)
-    ========================================================== */
+    /* MODAL DE VISTA */
     const viewModal = document.getElementById('viewModal');
     const mImg = document.getElementById('m-img');
     const mCaption = document.getElementById('m-caption');
@@ -1082,9 +1100,7 @@
       if (activeViewingId) openEditModal(activeViewingId);
     };
 
-    /* ==========================================================
-       MODAL DE EDICIÓN (IMAGEN + TEXTOS)
-    ========================================================== */
+    /* MODAL DE EDICIÓN */
     const editModal = document.getElementById('editModal');
     const editId = document.getElementById('edit-id');
     const editTitle = document.getElementById('edit-title');
@@ -1107,7 +1123,6 @@
       editFile.value = '';
       currentEditedBase64 = null;
       editPreviewImg.src = p.img;
-
       editModal.classList.add('active');
     }
 
@@ -1161,9 +1176,7 @@
       }
     };
 
-    /* ==========================================================
-       MODAL AÑADIR NUEVA FOTO
-    ========================================================== */
+    /* MODAL AÑADIR NUEVA FOTO */
     const addModal = document.getElementById('addModal');
     document.getElementById('openAddModal').onclick = () => addModal.classList.add('active');
     document.getElementById('closeAddModal').onclick = () => addModal.classList.remove('active');
@@ -1210,9 +1223,7 @@
       confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
     });
 
-    /* ==========================================================
-       CONTADOR DE NOVIOS
-    ========================================================== */
+    /* CONTADOR DE NOVIOS */
     let relationshipStartDate = localStorage.getItem('love_anniversary_date') || '2023-09-21T00:00:00';
 
     function updateLoveTimer() {
@@ -1242,9 +1253,61 @@
       }
     });
 
-    /* ==========================================================
-       PÉTALOS Y LUCIÉRNAGAS
-    ========================================================== */
+    /* RESPALDO (EXPORT / IMPORT / COPIAR EN 1 CLIC) */
+    document.getElementById('btnExportBackup').addEventListener('click', () => {
+      const dataToExport = {
+        photos: photos,
+        anniversary: relationshipStartDate
+      };
+      const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'recuerdos_flores_amarillas.json';
+      a.click();
+    });
+
+    document.getElementById('btnImportBackup').addEventListener('click', () => {
+      document.getElementById('restore-json-input').click();
+    });
+
+    document.getElementById('restore-json-input').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          try {
+            const data = JSON.parse(evt.target.result);
+            if (data.photos) {
+              photos = data.photos;
+              savePhotos();
+              if (data.anniversary) {
+                relationshipStartDate = data.anniversary;
+                localStorage.setItem('love_anniversary_date', relationshipStartDate);
+                updateLoveTimer();
+              }
+              renderAlbum();
+              confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
+              alert('¡Tus recuerdos se restauraron con éxito! 💛');
+            }
+          } catch(err) {
+            alert('Error al leer el archivo de respaldo.');
+          }
+        };
+        reader.readAsText(file);
+      }
+      this.value = '';
+    });
+
+    document.getElementById('btnCopyData').addEventListener('click', () => {
+      const dataStr = JSON.stringify({ photos, anniversary: relationshipStartDate });
+      navigator.clipboard.writeText(dataStr).then(() => {
+        alert('¡Datos copiados al portapapeles! Puedes pegarlo directamente aquí en el chat para integrarlo.');
+      }).catch(() => {
+        prompt('Copia este texto manualmente:', dataStr);
+      });
+    });
+
+    /* PÉTALOS Y LUCIÉRNAGAS */
     const canvas = document.getElementById('fx-canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -1331,9 +1394,7 @@
     }
     animateFX();
 
-    /* ==========================================================
-       MÚSICA SINTETIZADA
-    ========================================================== */
+    /* MÚSICA SINTETIZADA */
     let audioCtx = null;
     let isPlaying = false;
     let musicInterval = null;
@@ -1393,9 +1454,7 @@
     }
     document.getElementById('musicToggle').onclick = toggleMusic;
 
-    /* ==========================================================
-       UNBOXING Y CONFETI
-    ========================================================== */
+    /* UNBOXING */
     const giftScreen = document.getElementById('gift-screen');
     giftScreen.addEventListener('click', () => {
       giftScreen.classList.add('hidden');
@@ -1448,7 +1507,7 @@
       confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
     };
 
-    // Iniciar renderizado
+    // Renderizar
     renderAlbum();
   </script>
 </body>
