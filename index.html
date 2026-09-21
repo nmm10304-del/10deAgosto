@@ -58,15 +58,13 @@
       position: fixed;
       inset: 0;
       background: radial-gradient(circle, #241606 0%, #0c0803 100%);
-      z-index: 99999;
+      z-index: 999999;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
       text-align: center;
-      padding: 20px;
-      transition: opacity 0.4s ease;
+      padding: 24px;
     }
 
     .gift-box {
@@ -75,7 +73,6 @@
       position: relative;
       animation: gentlePulse 2s infinite ease-in-out;
       margin-bottom: 20px;
-      cursor: pointer;
     }
 
     @keyframes gentlePulse {
@@ -105,22 +102,24 @@
       line-height: 1.5;
       font-weight: 300;
       padding: 0 10px;
+      margin-bottom: 20px;
     }
 
+    /* BOTÓN DE APERTURA NATIVO */
     .tap-btn {
-      margin-top: 25px;
-      padding: 12px 28px;
+      padding: 14px 32px;
       border-radius: 50px;
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       color: #241400;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       letter-spacing: 1px;
       text-transform: uppercase;
       border: none;
-      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+      box-shadow: 0 4px 20px rgba(245, 158, 11, 0.6);
       cursor: pointer;
       animation: bounce 1.8s infinite;
+      z-index: 1000000;
     }
 
     @keyframes bounce {
@@ -158,7 +157,6 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.3s ease;
     }
 
     .music-btn.playing {
@@ -293,7 +291,6 @@
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
       position: relative;
       cursor: pointer;
-      transition: transform 0.3s ease;
     }
 
     .washi-tape {
@@ -460,7 +457,7 @@
       inset: 0;
       background: rgba(10, 7, 3, 0.95);
       backdrop-filter: blur(15px);
-      z-index: 100000;
+      z-index: 1000000;
       display: none;
       align-items: center;
       justify-content: center;
@@ -528,8 +525,8 @@
   <canvas id="fx-canvas"></canvas>
 
   <!-- PANTALLA INICIAL DE REGALO -->
-  <div id="gift-screen" onclick="abrirRegalo()">
-    <div class="gift-box">
+  <div id="gift-screen">
+    <div class="gift-box" onclick="abrirRegalo()">
       <svg viewBox="0 0 100 100">
         <rect x="15" y="40" width="70" height="50" rx="6" fill="#f59e0b" />
         <rect x="10" y="30" width="80" height="15" rx="4" fill="#fbbf24" />
@@ -541,7 +538,7 @@
     </div>
     <h1 class="gift-title">Para el amor de mi vida</h1>
     <p class="gift-sub">Hoy el cielo florece de amarillo solo para recordarte lo brillante, dulce y especial que eres en mi vida...</p>
-    <button class="tap-btn" type="button">Toca aquí para abrir tu sorpresa ✨</button>
+    <button class="tap-btn" onclick="abrirRegalo()" type="button">Toca aquí para abrir tu sorpresa ✨</button>
   </div>
 
   <!-- CONTENIDO PRINCIPAL -->
@@ -623,15 +620,12 @@
         <img id="m-img" src="" alt="Recuerdo">
       </div>
       <h3 class="modal-caption" id="m-caption"></h3>
-      <div class="polaroid-date" id="m-date" style="margin-bottom: 6px;"></div>
+      <div class="polaroid-date" id="m-date" style="margin-bottom: 8px;"></div>
       <p class="modal-desc" id="m-desc"></p>
     </div>
   </div>
 
   <script>
-    /* ==========================================================
-       DATOS PREDETERMINADOS (TUS RECUERDOS)
-    ========================================================== */
     const defaultPhotos = [
       {
         id: 1,
@@ -691,39 +685,20 @@
       photos = defaultPhotos;
     }
 
-    /* ==========================================================
-       ABRIR REGALO (GARANTIZADO)
-    ========================================================== */
-    let isOpen = false;
+    // FUNCIÓN DE APERTURA DIRECTA Y GLOBAL
     function abrirRegalo() {
-      if (isOpen) return;
-      isOpen = true;
-
       const screen = document.getElementById('gift-screen');
-      screen.style.opacity = '0';
-      screen.style.pointerEvents = 'none';
-      setTimeout(() => {
+      if (screen) {
         screen.style.display = 'none';
-      }, 400);
-
-      // Música
+      }
       try { toggleMusic(); } catch(e) {}
-
-      // Confeti
       try {
         if (typeof confetti === 'function') {
-          confetti({
-            particleCount: 70,
-            spread: 60,
-            origin: { y: 0.6 }
-          });
+          confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
         }
       } catch(e) {}
     }
 
-    /* ==========================================================
-       RENDERIZADO POLAROID
-    ========================================================== */
     const albumGrid = document.getElementById('albumGrid');
 
     function renderAlbum() {
@@ -766,9 +741,6 @@
       });
     }
 
-    /* ==========================================================
-       MODAL LIGHTBOX
-    ========================================================== */
     const viewModal = document.getElementById('viewModal');
     const mImg = document.getElementById('m-img');
     const mCaption = document.getElementById('m-caption');
@@ -788,9 +760,6 @@
     document.getElementById('closeViewModal').onclick = () => viewModal.classList.remove('active');
     viewModal.onclick = (e) => { if (e.target === viewModal) viewModal.classList.remove('active'); };
 
-    /* ==========================================================
-       CONTADOR ANIVERSARIO (10 de Agosto de 2025)
-    ========================================================== */
     const relationshipStartDate = new Date('2025-08-10T00:00:00').getTime();
 
     function updateLoveTimer() {
@@ -810,9 +779,6 @@
     setInterval(updateLoveTimer, 1000);
     updateLoveTimer();
 
-    /* ==========================================================
-       PÉTALOS Y LUCIÉRNAGAS
-    ========================================================== */
     const canvas = document.getElementById('fx-canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
@@ -899,9 +865,6 @@
     }
     animateFX();
 
-    /* ==========================================================
-       MÚSICA
-    ========================================================== */
     let audioCtx = null;
     let isPlaying = false;
     let musicInterval = null;
@@ -959,9 +922,6 @@
     }
     document.getElementById('musicToggle').onclick = toggleMusic;
 
-    /* ==========================================================
-       CORAZONES
-    ========================================================== */
     function createHeartShower(x, y) {
       for (let i = 0; i < 6; i++) {
         const h = document.createElement('div');
@@ -987,11 +947,7 @@
     document.getElementById('showerLove').onclick = (e) => {
       createHeartShower(e.clientX, e.clientY);
       try {
-        confetti({
-          particleCount: 50,
-          spread: 60,
-          origin: { y: 0.75 }
-        });
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.75 } });
       } catch(err){}
     };
 
