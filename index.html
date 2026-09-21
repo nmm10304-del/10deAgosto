@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Mi Niña Hermosa 💛 Flores Amarillas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --primary: #f59e0b;
+      --primary-light: #fbbf24;
+      --primary-glow: #fde68a;
+      --accent: #d97706;
+      --bg-dark: #0f0b05;
+      --bg-card: rgba(255, 253, 245, 0.95);
+      --text-main: #271c08;
+      --text-muted: #786548;
+      --romantic-red: #e11d48;
+      --gold-gradient: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #b45309 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(217, 119, 6, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, #161007 0%, #0a0703 100%);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #fx-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* PANTALLA INICIAL DE REGALO */
+    #gift-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle, #241606 0%, #0c0803 100%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s ease;
+      cursor: pointer;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #gift-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.1);
+    }
+
+    .gift-box {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      animation: gentlePulse 2s infinite ease-in-out;
+      transform-style: preserve-3d;
+      margin-bottom: 30px;
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.08) rotate(2deg); filter: drop-shadow(0 0 35px rgba(251, 191, 36, 0.8)); }
+    }
+
+    .gift-box svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+    }
+
+    .gift-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.3rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .gift-sub {
+      font-size: 1.1rem;
+      color: #fde68a;
+      max-width: 420px;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .tap-hint {
+      margin-top: 25px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fde68a;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: bounce 1.8s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .app-container {
+      position: relative;
+      z-index: 5;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px 20px;
+    }
+
+    /* BARRA SUPERIOR Y MÚSICA */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .music-btn, .add-btn {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fef08a;
+      padding: 10px 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .music-btn:hover, .add-btn:hover {
+      background: rgba(245, 158, 11, 0.25);
+      border-color: #f59e0b;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
+    }
+
+    .music-btn.playing {
+      background: #f59e0b;
+      color: #241606;
+      font-weight: 600;
+    }
+
+    /* HERO & DEDICATORIA */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 20px;
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      color: #fde68a;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 15px;
+    }
+
+    .hero-title span {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-style: italic;
+    }
+
+    .hero-quote {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: #fde68a;
+      line-height: 1.4;
+      text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+      margin-bottom: 25px;
+    }
+
+    /* CONTADOR DE AMOR */
+    .love-timer-card {
+      background: rgba(28, 20, 10, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      border-radius: 24px;
+      padding: 25px 30px;
+      max-width: 650px;
+      margin: 0 auto 50px auto;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .timer-header {
+      font-size: 0.95rem;
+      color: #fef08a;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timer-units {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .unit-box {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 16px;
+      padding: 12px 6px;
+    }
+
+    .unit-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: #fbbf24;
+      display: block;
+    }
+
+    .unit-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #d1b894;
+    }
+
+    .change-date-btn {
+      background: none;
+      border: none;
+      color: #bfa886;
+      font-size: 0.75rem;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: color 0.2s;
+    }
+    .change-date-btn:hover { color: #fde68a; }
+
+    /* FILTROS */
+    .category-pills {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #d1c0a5;
+      padding: 8px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+
+    .cat-btn.active, .cat-btn:hover {
+      background: #f59e0b;
+      border-color: #f59e0b;
+      color: #1e1302;
+      font-weight: 600;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+    }
+
+    /* GRID DE FOTOS SCRAPBOOK */
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 35px;
+      perspective: 1200px;
+      margin-bottom: 60px;
+    }
+
+    .polaroid-card {
+      background: var(--bg-card);
+      padding: 16px 16px 22px 16px;
+      border-radius: 10px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s;
+      transform-style: preserve-3d;
+    }
+
+    .polaroid-card:hover {
+      box-shadow: 0 25px 50px rgba(245, 158, 11, 0.3);
+      z-index: 10;
+    }
+
+    .washi-tape {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 100px;
+      height: 25px;
+      background: rgba(253, 230, 138, 0.7);
+      backdrop-filter: blur(2px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-left: 2px dashed rgba(217, 119, 6, 0.3);
+      border-right: 2px dashed rgba(217, 119, 6, 0.3);
+      z-index: 2;
+    }
+
+    .photo-wrapper {
+      position: relative;
+      width: 100%;
+      height: 270px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #eee;
+    }
+
+    .photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .polaroid-card:hover .photo-wrapper img {
+      transform: scale(1.08);
+    }
+
+    .photo-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .polaroid-footer {
+      padding-top: 15px;
+      text-align: center;
+    }
+
+    .polaroid-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .polaroid-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .like-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.85);
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.2s, background 0.2s;
+      z-index: 3;
+    }
+
+    .like-btn:hover {
+      transform: scale(1.15);
+      background: #fff;
+    }
+
+    .like-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #ccc;
+      transition: fill 0.2s;
+    }
+
+    .like-btn.liked svg {
+      fill: var(--romantic-red);
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.35); }
+      100% { transform: scale(1); }
+    }
+
+    /* CARTA DE AMOR INTERACTIVA */
+    .love-letter-section {
+      background: linear-gradient(180deg, rgba(30, 20, 10, 0.6) 0%, rgba(20, 13, 5, 0.95) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 30px;
+      padding: 50px 30px;
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+
+    .wax-seal {
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle, #f59e0b 0%, #b45309 100%);
+      border-radius: 50%;
+      margin: 0 auto 25px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5), inset 0 2px 5px rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .wax-seal:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .wax-seal svg {
+      width: 36px;
+      height: 36px;
+      fill: #3e1b02;
+    }
+
+    .letter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: #fbbf24;
+      margin-bottom: 20px;
+    }
+
+    .letter-body {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #f3e8d2;
+      font-weight: 300;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+
+    .letter-signature {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #fbbf24;
+      margin-top: 15px;
+    }
+
+    .kiss-btn {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #241400;
+      font-weight: 600;
+      border: none;
+      padding: 14px 34px;
+      border-radius: 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .kiss-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(245, 158, 11, 0.6);
+    }
+
+    /* MODAL DE IMAGEN COMPLETA */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 7, 3, 0.94);
+      backdrop-filter: blur(15px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      padding: 20px;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      padding: 20px 20px 28px 20px;
+      border-radius: 12px;
+      max-width: 650px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal.active .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-img-wrap {
+      width: 100%;
+      height: 380px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .modal-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      cursor: pointer;
+    }
+
+    .modal-caption {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .modal-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* MODAL AÑADIR RECUERDO */
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: #4a3e2d;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d4c3aa;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: #f59e0b;
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 2.2rem; }
+      .unit-num { font-size: 1.5rem; }
+      .photo-wrapper { height: 230px; }
+      .modal-img-wrap { height: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- PANTALLA DE APERTURA / REGALO -->
+  <div id="gift-screen">
+    <div class="gift-box">
+      <svg viewBox="0 0 100 100">
+        <rect x="15" y="40" width="70" height="50" rx="6" fill="#f59e0b" />
+        <rect x="10" y="30" width="80" height="15" rx="4" fill="#fbbf24" />
+        <rect x="45" y="30" width="10" height="60" fill="#b45309" />
+        <path d="M 50 30 C 35 10, 15 25, 45 30 Z" fill="#d97706" />
+        <path d="M 50 30 C 65 10, 85 25, 55 30 Z" fill="#d97706" />
+        <circle cx="50" cy="30" r="6" fill="#fde68a" />
+      </svg>
+    </div>
+    <h1 class="gift-title">Para la Niña de Mis Ojos</h1>
+    <p class="gift-sub">Hoy el cielo florece de amarillo solo para recordarte lo brillante, dulce y especial que eres en mi vida...</p>
+    <div class="tap-hint">Toca aquí para abrir tu sorpresa ✨</div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="app-container">
+    
+    <!-- BARRA DE ACCIÓN SUPERIOR -->
+    <div class="top-bar">
+      <button class="music-btn" id="musicToggle">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+        <span id="musicText">Música de Fondo</span>
+      </button>
+
+      <button class="add-btn" id="openAddModal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+        <span>Añadir Foto</span>
+      </button>
+    </div>
+
+    <!-- SECCIÓN HERO -->
+    <header class="hero">
+      <div class="hero-badge">💛 Nuestro Jardín Secreto 💛</div>
+      <h1 class="hero-title">Flores Amarillas Para <span>Mi Amor</span></h1>
+      <p class="hero-quote">"Amarte es encontrar un campo dorado donde siempre quiero quedarme..."</p>
+    </header>
+
+    <!-- CONTADOR DE TIEMPO DE NOVIOS -->
+    <div class="love-timer-card">
+      <div class="timer-header">
+        <span>✨ Tiempo haciéndome la persona más feliz del mundo:</span>
+      </div>
+      <div class="timer-units">
+        <div class="unit-box">
+          <span class="unit-num" id="d-days">00</span>
+          <span class="unit-label">Días</span>
+        </div>
+        <div class="unit-box">
+          <span class="unit-num" id="d-hours">00</span>
+          <span class="unit-label">Horas</span>
+        </div>
+        <div class="unit-box">
+          <span class="unit-num" id="d-mins">00</span>
+          <span class="unit-label">Minutos</span>
+        </div>
+        <div class="unit-box">
+          <span class="unit-num" id="d-secs">00</span>
+          <span class="unit-label">Segundos</span>
+        </div>
+      </div>
+      <button class="change-date-btn" id="editDateBtn">⚙️ Ajustar nuestra fecha de aniversario</button>
+    </div>
+
+    <!-- FILTROS DE CATEGORÍA -->
+    <div class="category-pills">
+      <button class="cat-btn active" data-cat="all">Todas las Flores 🌼</button>
+      <button class="cat-btn" data-cat="girasoles">Girasoles 🌻</button>
+      <button class="cat-btn" data-cat="rosas">Rosas & Tulipanes 🌷</button>
+      <button class="cat-btn" data-cat="silvestres">Silvestres 🌾</button>
+      <button class="cat-btn" data-cat="recuerdos">Nuestros Momentos 📸</button>
+    </div>
+
+    <!-- GRID DE POLAROIDS -->
+    <div class="album-grid" id="albumGrid"></div>
+
+    <!-- CARTA DE AMOR INTERACTIVA -->
+    <section class="love-letter-section">
+      <div class="wax-seal" id="sealAction" title="Toca el sello de cera">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+      <h2 class="letter-title">¿Por qué flores amarillas para ti?</h2>
+      <p class="letter-body">
+        Las flores amarillas no son una simple tradición de septiembre: simbolizan la luz que trajiste a mi vida, la alegría sincera de tus risas y la promesa de acompañarte, cuidarte y elegirte todos los días. 
+        <br><br>
+        Cada pétalo dorado en este álbum lleva un latido mío pensando en ti. Gracias por ser mi lugar seguro y la razón por la que mi corazón late siempre con una sonrisa.
+      </p>
+      <div class="letter-signature">Por y para siempre, Yo 💛</div>
+      <div>
+        <button class="kiss-btn" id="showerLove">¡Presiona aquí si tú también me amas! ✨</button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- MODAL DE VISTA DETALLADA (LIGHTBOX) -->
+  <div class="modal" id="viewModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeViewModal">&times;</button>
+      <div class="modal-img-wrap">
+        <img id="m-img" src="" alt="Recuerdo">
+      </div>
+      <h3 class="modal-caption" id="m-caption"></h3>
+      <p class="modal-desc" id="m-desc"></p>
+    </div>
+  </div>
+
+  <!-- MODAL PARA AGREGAR NUEVA FOTO -->
+  <div class="modal" id="addModal">
+    <div class="modal-content" style="max-width: 480px;">
+      <button class="modal-close" id="closeAddModal">&times;</button>
+      <h3 style="color:#2b1a03; font-family:'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px;">Subir Nuevo Recuerdo</h3>
+      
+      <div class="form-group">
+        <label>Título o Frase de Amor:</label>
+        <input type="text" id="inp-title" class="form-input" placeholder="Ej: Nuestra tarde inolvidable..." />
+      </div>
+
+      <div class="form-group">
+        <label>Categoría:</label>
+        <select id="inp-cat" class="form-input">
+          <option value="recuerdos">Nuestros Momentos 📸</option>
+          <option value="girasoles">Girasoles 🌻</option>
+          <option value="rosas">Rosas & Tulipanes 🌷</option>
+          <option value="silvestres">Silvestres 🌾</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Foto desde tu galería o archivo:</label>
+        <input type="file" id="inp-file" accept="image/*" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>O pega el link (URL) de una imagen:</label>
+        <input type="url" id="inp-url" class="form-input" placeholder="https://..." />
+      </div>
+
+      <div class="form-group">
+        <label>Dedicatoria o Nota:</label>
+        <textarea id="inp-desc" class="form-input" rows="3" placeholder="Escribe lo que sentiste ese día..."></textarea>
+      </div>
+
+      <button class="kiss-btn" id="btnSaveMemory" style="width:100%;">Guardar en el Álbum</button>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================
+       DATOS INICIALES DEL ÁLBUM
+    ========================================================== */
+    const initialPhotos = [
+      {
+        id: 1,
+        cat: 'girasoles',
+        title: 'Tu sonrisa que ilumina',
+        date: 'Septiembre 2026',
+        desc: 'Así como los girasoles buscan la luz del sol, mis ojos siempre te buscan a ti entre cualquier multitud.',
+        img: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80',
+        liked: true
+      },
+      {
+        id: 2,
+        cat: 'rosas',
+        title: 'La dulzura de tu abrazo',
+        date: 'Para Siempre',
+        desc: 'Rosas amarillas que guardan el perfume del cariño más puro y sincero que he sentido jamás.',
+        img: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
+        liked: false
+      },
+      {
+        id: 3,
+        cat: 'silvestres',
+        title: 'Libre y Hermosa',
+        date: 'Cada Amanecer',
+        desc: 'Flores libres que nacen con fuerza, tan auténticas y perfectas como lo eres tú a cada segundo.',
+        img: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80',
+        liked: true
+      },
+      {
+        id: 4,
+        cat: 'girasoles',
+        title: 'Un Mar Dorado Para Ti',
+        date: 'Mi Lugar Favorito',
+        desc: 'Caminaría contigo por cualquier sendero, con tal de verte sonreír como la reina que eres.',
+        img: 'https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=800&q=80',
+        liked: false
+      },
+      {
+        id: 5,
+        cat: 'rosas',
+        title: 'Tulipanes de Oro',
+        date: 'Contigo Todo',
+        desc: 'Símbolo del renacer, de la primavera en mi pecho y de la alegría infinita de tenerte a mi lado.',
+        img: 'https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=80',
+        liked: true
+      },
+      {
+        id: 6,
+        cat: 'recuerdos',
+        title: 'Nuestra Historia de Amor',
+        date: 'El Mejor Capítulo',
+        desc: 'El primer recuerdo de tantos que aún nos quedan por escribir juntos de la mano.',
+        img: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80',
+        liked: false
+      }
+    ];
+
+    // Cargar fotos guardadas en LocalStorage si existen
+    let photos = JSON.parse(localStorage.getItem('yellow_flora_photos')) || initialPhotos;
+
+    /* ==========================================================
+       RENDERIZADO DEL ÁLBUM SCRAPBOOK CON FÍSICA 3D TILT
+    ========================================================== */
+    const albumGrid = document.getElementById('albumGrid');
+
+    function renderAlbum(filter = 'all') {
+      albumGrid.innerHTML = '';
+      const filtered = filter === 'all' ? photos : photos.filter(p => p.cat === filter);
+
+      filtered.forEach((p, idx) => {
+        const rot = ((idx % 5) - 2) * 2.5; // ligera rotación polaroid aleatoria
+        const card = document.createElement('div');
+        card.className = 'polaroid-card';
+        card.style.transform = `rotate(${rot}deg)`;
+
+        card.innerHTML = `
+          <div class="washi-tape"></div>
+          <button class="like-btn ${p.liked ? 'liked' : ''}" data-id="${p.id}" title="Me encanta">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </button>
+          <div class="photo-wrapper" onclick="openPhotoModal(${p.id})">
+            <img src="${p.img}" alt="${p.title}" loading="lazy" />
+            <span class="photo-badge">🌼 Ver</span>
+          </div>
+          <div class="polaroid-footer" onclick="openPhotoModal(${p.id})">
+            <div class="polaroid-title">${p.title}</div>
+            <div class="polaroid-date">${p.date}</div>
+          </div>
+        `;
+
+        // Efecto 3D Tilt al pasar el mouse
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -12;
+          const rotateY = ((x - centerX) / centerX) * 12;
+          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `rotate(${rot}deg) scale3d(1, 1, 1)`;
+        });
+
+        albumGrid.appendChild(card);
+      });
+
+      // Like listener
+      document.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = parseInt(btn.dataset.id);
+          const target = photos.find(item => item.id === id);
+          if (target) {
+            target.liked = !target.liked;
+            btn.classList.toggle('liked', target.liked);
+            localStorage.setItem('yellow_flora_photos', JSON.stringify(photos));
+            if (target.liked) createHeartShower(e.clientX, e.clientY);
+          }
+        });
+      });
+    }
+
+    /* FILTROS */
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderAlbum(btn.dataset.cat);
+      });
+    });
+
+    /* ==========================================================
+       MODAL DE VISTA (LIGHTBOX)
+    ========================================================== */
+    const viewModal = document.getElementById('viewModal');
+    const mImg = document.getElementById('m-img');
+    const mCaption = document.getElementById('m-caption');
+    const mDesc = document.getElementById('m-desc');
+
+    window.openPhotoModal = function(id) {
+      const p = photos.find(item => item.id === id);
+      if (!p) return;
+      mImg.src = p.img;
+      mCaption.innerText = p.title;
+      mDesc.innerText = p.desc;
+      viewModal.classList.add('active');
+    };
+
+    document.getElementById('closeViewModal').onclick = () => viewModal.classList.remove('active');
+    viewModal.onclick = (e) => { if (e.target === viewModal) viewModal.classList.remove('active'); };
+
+    /* ==========================================================
+       MODAL PARA AÑADIR NUEVAS FOTOS
+    ========================================================== */
+    const addModal = document.getElementById('addModal');
+    document.getElementById('openAddModal').onclick = () => addModal.classList.add('active');
+    document.getElementById('closeAddModal').onclick = () => addModal.classList.remove('active');
+    addModal.onclick = (e) => { if (e.target === addModal) addModal.classList.remove('active'); };
+
+    let selectedBase64 = null;
+    document.getElementById('inp-file').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          selectedBase64 = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById('btnSaveMemory').addEventListener('click', () => {
+      const title = document.getElementById('inp-title').value.trim() || 'Nuestro Amor Dorado';
+      const cat = document.getElementById('inp-cat').value;
+      const url = document.getElementById('inp-url').value.trim();
+      const desc = document.getElementById('inp-desc').value.trim() || 'Un momento guardado para toda la eternidad.';
+      const finalImg = selectedBase64 || url || 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80';
+
+      const newPhoto = {
+        id: Date.now(),
+        cat,
+        title,
+        date: 'Recuerdo Guardado',
+        desc,
+        img: finalImg,
+        liked: true
+      };
+
+      photos.unshift(newPhoto);
+      localStorage.setItem('yellow_flora_photos', JSON.stringify(photos));
+      renderAlbum();
+      addModal.classList.remove('active');
+
+      // Limpiar inputs
+      document.getElementById('inp-title').value = '';
+      document.getElementById('inp-url').value = '';
+      document.getElementById('inp-desc').value = '';
+      document.getElementById('inp-file').value = '';
+      selectedBase64 = null;
+
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+    });
+
+    /* ==========================================================
+       CONTADOR DE AMOR (PERSONALIZABLE)
+    ========================================================== */
+    let relationshipStartDate = localStorage.getItem('love_anniversary_date') || '2023-09-21T00:00:00';
+
+    function updateLoveTimer() {
+      const now = new Date();
+      const start = new Date(relationshipStartDate);
+      const diff = Math.max(0, now - start);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('d-days').innerText = String(days).padStart(2, '0');
+      document.getElementById('d-hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('d-mins').innerText = String(mins).padStart(2, '0');
+      document.getElementById('d-secs').innerText = String(secs).padStart(2, '0');
+    }
+    setInterval(updateLoveTimer, 1000);
+    updateLoveTimer();
+
+    document.getElementById('editDateBtn').addEventListener('click', () => {
+      const newD = prompt('Ingresa la fecha en la que se hicieron novios (Formato AAAA-MM-DD):', relationshipStartDate.split('T')[0]);
+      if (newD && !isNaN(new Date(newD))) {
+        relationshipStartDate = newD + 'T00:00:00';
+        localStorage.setItem('love_anniversary_date', relationshipStartDate);
+        updateLoveTimer();
+      }
+    });
+
+    /* ==========================================================
+       LIENZO INTERACTIVO: PÉTALOS Y LUCIÉRNAGAS
+    ========================================================== */
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    class Petal {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = -20;
+        this.size = Math.random() * 12 + 8;
+        this.speedY = Math.random() * 1.5 + 0.8;
+        this.speedX = (Math.random() - 0.5) * 1.2;
+        this.angle = Math.random() * 360;
+        this.spin = (Math.random() - 0.5) * 2;
+        this.opacity = Math.random() * 0.5 + 0.4;
+        this.color = Math.random() > 0.3 ? '#fbbf24' : '#f59e0b';
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.y * 0.015) + this.speedX;
+        this.angle += this.spin;
+        if (this.y > height + 20) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.angle * Math.PI) / 180);
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, this.size * 0.6, this.size, Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    class Firefly {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2.5 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.6;
+        this.speedY = (Math.random() - 0.5) * 0.6;
+        this.alpha = Math.random();
+        this.pulse = Math.random() * 0.03 + 0.01;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha += this.pulse;
+        if (this.alpha <= 0.1 || this.alpha >= 0.9) this.pulse = -this.pulse;
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        if (this.y > height) this.y = 0;
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = Math.abs(this.alpha);
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#fde68a';
+        ctx.fillStyle = '#fde68a';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    const particles = [];
+    for (let i = 0; i < 28; i++) particles.push(new Petal());
+    for (let i = 0; i < 35; i++) particles.push(new Firefly());
+
+    function animateFX() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateFX);
+    }
+    animateFX();
+
+    /* ==========================================================
+       MÚSICA SINTETIZADA CON WEB AUDIO API (RELAJANTE & ROMÁNTICA)
+    ========================================================== */
+    let audioCtx = null;
+    let isPlaying = false;
+    let musicInterval = null;
+
+    // Progresión romántica (Do Mayor / La menor dulce)
+    const melodyNotes = [
+      261.63, 329.63, 392.00, 523.25, // C - E - G - C
+      220.00, 261.63, 329.63, 440.00, // A - C - E - A
+      174.61, 220.00, 261.63, 349.23, // F - A - C - F
+      196.00, 246.94, 293.66, 392.00  // G - B - D - G
+    ];
+
+    function playTone(freq, duration = 1.2) {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.06, audioCtx.currentTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    function toggleMusic() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      const btn = document.getElementById('musicToggle');
+      const label = document.getElementById('musicText');
+
+      if (!isPlaying) {
+        isPlaying = true;
+        btn.classList.add('playing');
+        label.innerText = 'Pausar Música';
+        let step = 0;
+        musicInterval = setInterval(() => {
+          playTone(melodyNotes[step % melodyNotes.length], 1.4);
+          step++;
+        }, 550);
+      } else {
+        isPlaying = false;
+        btn.classList.remove('playing');
+        label.innerText = 'Música de Fondo';
+        clearInterval(musicInterval);
+      }
+    }
+
+    document.getElementById('musicToggle').onclick = toggleMusic;
+
+    /* ==========================================================
+       PANTALLA DE REGALO (UNBOXING) Y CONFETI
+    ========================================================== */
+    const giftScreen = document.getElementById('gift-screen');
+    giftScreen.addEventListener('click', () => {
+      giftScreen.classList.add('hidden');
+      
+      // Iniciar música automáticamente si es posible
+      try { toggleMusic(); } catch(e){}
+
+      // Explosión de confeti dorado
+      const end = Date.now() + 2500;
+      const colors = ['#f59e0b', '#fbbf24', '#fde68a', '#ffffff', '#e11d48'];
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    });
+
+    /* ==========================================================
+       CORAZONES FLOTANTES AL DAR AMOR
+    ========================================================== */
+    function createHeartShower(x, y) {
+      for (let i = 0; i < 8; i++) {
+        const h = document.createElement('div');
+        h.innerText = Math.random() > 0.5 ? '💛' : '✨';
+        h.style.position = 'fixed';
+        h.style.left = (x || window.innerWidth / 2) + (Math.random() * 60 - 30) + 'px';
+        h.style.top = (y || window.innerHeight / 2) + (Math.random() * 60 - 30) + 'px';
+        h.style.fontSize = Math.random() * 18 + 16 + 'px';
+        h.style.pointerEvents = 'none';
+        h.style.zIndex = '3000';
+        h.style.transition = 'all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        document.body.appendChild(h);
+
+        setTimeout(() => {
+          h.style.transform = `translate(${(Math.random() - 0.5) * 120}px, -150px) scale(0)`;
+          h.style.opacity = '0';
+        }, 30);
+
+        setTimeout(() => h.remove(), 1300);
+      }
+    }
+
+    document.getElementById('showerLove').onclick = (e) => {
+      createHeartShower(e.clientX, e.clientY);
+      confetti({
+        particleCount: 70,
+        spread: 80,
+        origin: { y: 0.75 },
+        colors: ['#fbbf24', '#f59e0b', '#e11d48', '#fff']
+      });
+    };
+
+    document.getElementById('sealAction').onclick = (e) => {
+      createHeartShower(e.clientX, e.clientY);
+      confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
+    };
+
+    // Inicializar
+    renderAlbum();
+  </script>
+</body>
+</html>
