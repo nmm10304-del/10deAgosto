@@ -66,11 +66,12 @@
       cursor: pointer;
       text-align: center;
       padding: 20px;
+      transition: opacity 0.4s ease;
     }
 
     .gift-box {
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
       position: relative;
       animation: gentlePulse 2s infinite ease-in-out;
       margin-bottom: 20px;
@@ -79,19 +80,18 @@
 
     @keyframes gentlePulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); filter: drop-shadow(0 0 35px rgba(251, 191, 36, 0.8)); }
+      50% { transform: scale(1.08); filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.8)); }
     }
 
     .gift-box svg {
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
     }
 
     .gift-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
       background: var(--gold-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -101,9 +101,10 @@
     .gift-sub {
       font-size: 0.95rem;
       color: #fde68a;
-      max-width: 400px;
+      max-width: 380px;
       line-height: 1.5;
       font-weight: 300;
+      padding: 0 10px;
     }
 
     .tap-btn {
@@ -124,16 +125,16 @@
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-6px); }
     }
 
     /* CONTENEDOR */
     .app-container {
       position: relative;
       z-index: 5;
-      max-width: 1000px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 20px 14px 70px 14px;
+      padding: 15px 12px 70px 12px;
     }
 
     /* BARRA SUPERIOR */
@@ -141,7 +142,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .music-btn {
@@ -190,7 +191,7 @@
       font-size: clamp(1.8rem, 5vw, 3rem);
       color: #fff;
       line-height: 1.2;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .hero-title span {
@@ -202,7 +203,7 @@
 
     .hero-quote {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
       color: #fde68a;
       line-height: 1.3;
       text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
@@ -213,37 +214,37 @@
       background: rgba(28, 20, 10, 0.78);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(245, 158, 11, 0.28);
-      border-radius: 20px;
-      padding: 15px 12px;
-      max-width: 520px;
+      border-radius: 18px;
+      padding: 12px 10px;
+      max-width: 480px;
       margin: 0 auto 25px auto;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       text-align: center;
     }
 
     .timer-header {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #fef08a;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: 400;
     }
 
     .timer-units {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      gap: 6px;
     }
 
     .unit-box {
       background: rgba(245, 158, 11, 0.12);
       border: 1px solid rgba(245, 158, 11, 0.25);
-      border-radius: 12px;
-      padding: 8px 2px;
+      border-radius: 10px;
+      padding: 6px 2px;
     }
 
     .unit-num {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.3rem, 3.8vw, 1.8rem);
+      font-size: clamp(1.2rem, 3.8vw, 1.7rem);
       font-weight: 700;
       color: #fbbf24;
       display: block;
@@ -270,7 +271,7 @@
       background: #f59e0b;
       color: #201300;
       font-weight: 600;
-      padding: 8px 20px;
+      padding: 8px 18px;
       border-radius: 30px;
       font-size: 0.9rem;
       box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
@@ -279,36 +280,30 @@
     /* GRID DE POLAROIDS */
     .album-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 26px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
       perspective: 1200px;
-      margin-bottom: 45px;
+      margin-bottom: 40px;
     }
 
     .polaroid-card {
       background: var(--bg-card);
-      padding: 14px 14px 18px 14px;
-      border-radius: 8px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      padding: 12px 12px 16px 12px;
+      border-radius: 6px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
       position: relative;
       cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      transform-style: preserve-3d;
-    }
-
-    .polaroid-card:hover {
-      box-shadow: 0 25px 50px rgba(245, 158, 11, 0.35);
-      z-index: 10;
+      transition: transform 0.3s ease;
     }
 
     .washi-tape {
       position: absolute;
-      top: -10px;
+      top: -8px;
       left: 50%;
       transform: translateX(-50%) rotate(-2deg);
-      width: 80px;
-      height: 20px;
-      background: rgba(253, 230, 138, 0.75);
+      width: 75px;
+      height: 18px;
+      background: rgba(253, 230, 138, 0.8);
       backdrop-filter: blur(2px);
       box-shadow: 0 2px 5px rgba(0,0,0,0.12);
       border-left: 2px dashed rgba(217, 119, 6, 0.3);
@@ -319,21 +314,16 @@
     .photo-wrapper {
       position: relative;
       width: 100%;
-      height: 270px;
-      border-radius: 5px;
+      height: 250px;
+      border-radius: 4px;
       overflow: hidden;
-      background: #222;
+      background: #111;
     }
 
     .photo-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .polaroid-card:hover .photo-wrapper img {
-      transform: scale(1.05);
     }
 
     .photo-badge {
@@ -344,8 +334,8 @@
       backdrop-filter: blur(4px);
       color: #fff;
       font-size: 0.72rem;
-      padding: 4px 8px;
-      border-radius: 10px;
+      padding: 3px 7px;
+      border-radius: 8px;
     }
 
     .like-btn {
@@ -354,50 +344,43 @@
       right: 8px;
       background: rgba(255, 255, 255, 0.95);
       border: none;
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       z-index: 4;
     }
 
     .like-btn svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       fill: #bbb;
       transition: fill 0.2s;
     }
 
     .like-btn.liked svg {
       fill: var(--romantic-red);
-      animation: pop 0.4s ease;
-    }
-
-    @keyframes pop {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.35); }
     }
 
     .polaroid-footer {
-      padding-top: 12px;
+      padding-top: 10px;
       text-align: center;
     }
 
     .polaroid-title {
       font-family: 'Great Vibes', cursive;
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       color: var(--text-main);
       margin-bottom: 2px;
       line-height: 1.2;
     }
 
     .polaroid-date {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -406,57 +389,56 @@
 
     /* CARTA DE AMOR */
     .love-letter-section {
-      background: linear-gradient(180deg, rgba(30, 20, 10, 0.75) 0%, rgba(18, 12, 5, 0.98) 100%);
+      background: linear-gradient(180deg, rgba(30, 20, 10, 0.8) 0%, rgba(18, 12, 5, 0.98) 100%);
       border: 1px solid rgba(245, 158, 11, 0.32);
-      border-radius: 24px;
-      padding: 38px 18px;
-      max-width: 700px;
+      border-radius: 20px;
+      padding: 30px 16px;
+      max-width: 650px;
       margin: 0 auto;
       text-align: center;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.75);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.7);
     }
 
     .wax-seal {
-      width: 58px;
-      height: 58px;
+      width: 54px;
+      height: 54px;
       background: radial-gradient(circle, #f59e0b 0%, #b45309 100%);
       border-radius: 50%;
-      margin: 0 auto 16px auto;
+      margin: 0 auto 14px auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.5);
       cursor: pointer;
     }
 
     .wax-seal svg {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       fill: #3e1b02;
     }
 
     .letter-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-size: clamp(1.5rem, 4vw, 1.9rem);
       color: #fbbf24;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .letter-body {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.8;
       color: #f3e8d2;
       font-weight: 300;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       font-style: italic;
     }
 
     .letter-signature {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.4rem;
+      font-size: 2.3rem;
       color: #fbbf24;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .kiss-btn {
@@ -464,15 +446,15 @@
       color: #241400;
       font-weight: 600;
       border: none;
-      padding: 12px 28px;
-      border-radius: 40px;
-      font-size: 0.92rem;
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 0.88rem;
       cursor: pointer;
       margin-top: 15px;
-      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
     }
 
-    /* MODAL LIGHTBOX */
+    /* MODAL */
     .modal {
       position: fixed;
       inset: 0;
@@ -482,7 +464,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 14px;
     }
 
     .modal.active {
@@ -491,9 +473,9 @@
 
     .modal-content {
       background: var(--bg-card);
-      padding: 16px;
-      border-radius: 12px;
-      max-width: 520px;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 500px;
       width: 100%;
       text-align: center;
       position: relative;
@@ -503,10 +485,10 @@
 
     .modal-img-wrap {
       width: 100%;
-      height: 320px;
+      height: 300px;
       border-radius: 6px;
       overflow: hidden;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       background: #000;
     }
 
@@ -518,32 +500,26 @@
 
     .modal-close {
       position: absolute;
-      top: -38px;
+      top: -36px;
       right: 0;
       background: none;
       border: none;
       color: #fff;
-      font-size: 2.2rem;
+      font-size: 2rem;
       cursor: pointer;
     }
 
     .modal-caption {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.1rem;
+      font-size: 2rem;
       color: var(--text-main);
       margin-bottom: 2px;
     }
 
     .modal-desc {
       color: var(--text-muted);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       line-height: 1.5;
-    }
-
-    @media (max-width: 500px) {
-      .photo-wrapper { height: 250px; }
-      .modal-img-wrap { height: 240px; }
-      .album-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -552,8 +528,8 @@
   <canvas id="fx-canvas"></canvas>
 
   <!-- PANTALLA INICIAL DE REGALO -->
-  <div id="gift-screen">
-    <div class="gift-box" id="giftBoxBtn">
+  <div id="gift-screen" onclick="abrirRegalo()">
+    <div class="gift-box">
       <svg viewBox="0 0 100 100">
         <rect x="15" y="40" width="70" height="50" rx="6" fill="#f59e0b" />
         <rect x="10" y="30" width="80" height="15" rx="4" fill="#fbbf24" />
@@ -565,15 +541,14 @@
     </div>
     <h1 class="gift-title">Para el amor de mi vida</h1>
     <p class="gift-sub">Hoy el cielo florece de amarillo solo para recordarte lo brillante, dulce y especial que eres en mi vida...</p>
-    <button class="tap-btn" id="openBtn">Toca aquí para abrir tu sorpresa ✨</button>
+    <button class="tap-btn" type="button">Toca aquí para abrir tu sorpresa ✨</button>
   </div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="app-container">
     
-    <!-- MÚSICA -->
     <div class="top-bar">
-      <button class="music-btn" id="musicToggle">
+      <button class="music-btn" id="musicToggle" type="button">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
         </svg>
@@ -581,14 +556,13 @@
       </button>
     </div>
 
-    <!-- SECCIÓN HERO -->
     <header class="hero">
       <div class="hero-badge">💛 Nuestro Jardín de Amor 💛</div>
       <h1 class="hero-title">Flores Amarillas Para <span>Mi Vida Entera</span></h1>
       <p class="hero-quote">"Amarte es encontrar un campo dorado donde siempre quiero quedarme..."</p>
     </header>
 
-    <!-- CONTADOR DE TIEMPO JUNTOS -->
+    <!-- CONTADOR -->
     <div class="love-timer-card">
       <div class="timer-header">✨ Tiempo haciéndome la persona más feliz del mundo:</div>
       <div class="timer-units">
@@ -611,19 +585,18 @@
       </div>
     </div>
 
-    <!-- TÍTULO DE RECUERDOS -->
     <div class="section-headline">
       <div class="section-pill">
         <span>📸 Nuestros Momentos 💛</span>
       </div>
     </div>
 
-    <!-- GRID DE FOTOS -->
+    <!-- GRID FOTOS -->
     <div class="album-grid" id="albumGrid"></div>
 
-    <!-- CARTA DE AMOR -->
+    <!-- CARTA -->
     <section class="love-letter-section">
-      <div class="wax-seal" id="sealAction" title="Toca el sello de cera">
+      <div class="wax-seal" id="sealAction">
         <svg viewBox="0 0 24 24">
           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
@@ -636,33 +609,30 @@
       </p>
       <div class="letter-signature">Por y para siempre, Andy 💛</div>
       <div>
-        <button class="kiss-btn" id="showerLove">¡Presiona aquí si tú también me amas! ✨</button>
+        <button class="kiss-btn" id="showerLove" type="button">¡Presiona aquí si tú también me amas! ✨</button>
       </div>
     </section>
 
   </div>
 
-  <!-- MODAL LIGHTBOX -->
+  <!-- MODAL -->
   <div class="modal" id="viewModal">
     <div class="modal-content">
-      <button class="modal-close" id="closeViewModal">&times;</button>
+      <button class="modal-close" id="closeViewModal" type="button">&times;</button>
       <div class="modal-img-wrap">
         <img id="m-img" src="" alt="Recuerdo">
       </div>
       <h3 class="modal-caption" id="m-caption"></h3>
-      <div class="polaroid-date" id="m-date" style="margin-bottom: 8px;"></div>
+      <div class="polaroid-date" id="m-date" style="margin-bottom: 6px;"></div>
       <p class="modal-desc" id="m-desc"></p>
     </div>
   </div>
 
   <script>
     /* ==========================================================
-       DATOS DE SUS MOMENTOS
-       (Si ya guardaste tus fotos en tu laptop, el navegador las
-       tomará de tu memoria. Si ella entra por primera vez, 
-       cargará las fotos y textos que preparaste).
+       DATOS PREDETERMINADOS (TUS RECUERDOS)
     ========================================================== */
-    const defaultMoments = [
+    const defaultPhotos = [
       {
         id: 1,
         title: "Fotos de bebés",
@@ -713,51 +683,51 @@
       }
     ];
 
-    let photos = JSON.parse(localStorage.getItem('yellow_flora_nuestros_momentos')) || defaultMoments;
-
-    /* ==========================================================
-       APERTURA DE REGALO SEGURA (CLICK Y TOUCH)
-    ========================================================== */
-    const giftScreen = document.getElementById('gift-screen');
-    let hasOpened = false;
-
-    function openGift(e) {
-      if (e) e.preventDefault();
-      if (hasOpened) return;
-      hasOpened = true;
-
-      giftScreen.style.opacity = '0';
-      setTimeout(() => {
-        giftScreen.style.display = 'none';
-      }, 500);
-
-      // Activar música de fondo de forma segura
-      try { toggleMusic(); } catch(err) {}
-
-      // Activar confeti de bienvenida
-      try {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#f59e0b', '#fbbf24', '#fde68a', '#ffffff', '#e11d48']
-        });
-      } catch(err) {}
+    let photos = [];
+    try {
+      const stored = localStorage.getItem('yellow_flora_nuestros_momentos');
+      photos = stored ? JSON.parse(stored) : defaultPhotos;
+    } catch(e) {
+      photos = defaultPhotos;
     }
 
-    document.getElementById('giftScreen').addEventListener('click', openGift);
-    document.getElementById('giftBoxBtn').addEventListener('click', openGift);
-    document.getElementById('openBtn').addEventListener('click', openGift);
-    document.getElementById('openBtn').addEventListener('touchend', openGift);
+    /* ==========================================================
+       ABRIR REGALO (GARANTIZADO)
+    ========================================================== */
+    let isOpen = false;
+    function abrirRegalo() {
+      if (isOpen) return;
+      isOpen = true;
+
+      const screen = document.getElementById('gift-screen');
+      screen.style.opacity = '0';
+      screen.style.pointerEvents = 'none';
+      setTimeout(() => {
+        screen.style.display = 'none';
+      }, 400);
+
+      // Música
+      try { toggleMusic(); } catch(e) {}
+
+      // Confeti
+      try {
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 70,
+            spread: 60,
+            origin: { y: 0.6 }
+          });
+        }
+      } catch(e) {}
+    }
 
     /* ==========================================================
-       RENDERIZADO DE FOTOS POLAROID
+       RENDERIZADO POLAROID
     ========================================================== */
     const albumGrid = document.getElementById('albumGrid');
 
     function renderAlbum() {
       albumGrid.innerHTML = '';
-
       photos.forEach((p, idx) => {
         const rot = ((idx % 5) - 2) * 2;
         const card = document.createElement('div');
@@ -766,7 +736,7 @@
 
         card.innerHTML = `
           <div class="washi-tape"></div>
-          <button class="like-btn ${p.liked ? 'liked' : ''}" data-id="${p.id}">
+          <button class="like-btn ${p.liked ? 'liked' : ''}" type="button">
             <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           </button>
           <div class="photo-wrapper">
@@ -782,27 +752,22 @@
         card.querySelector('.photo-wrapper').onclick = () => openPhotoModal(p.id);
         card.querySelector('.polaroid-footer').onclick = () => openPhotoModal(p.id);
 
-        albumGrid.appendChild(card);
-      });
-
-      // Like
-      document.querySelectorAll('.like-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        card.querySelector('.like-btn').onclick = (e) => {
           e.stopPropagation();
-          const id = parseInt(btn.dataset.id);
-          const target = photos.find(item => item.id === id);
-          if (target) {
-            target.liked = !target.liked;
-            btn.classList.toggle('liked', target.liked);
+          p.liked = !p.liked;
+          card.querySelector('.like-btn').classList.toggle('liked', p.liked);
+          try {
             localStorage.setItem('yellow_flora_nuestros_momentos', JSON.stringify(photos));
-            if (target.liked) createHeartShower(e.clientX, e.clientY);
-          }
-        });
+          } catch(err) {}
+          if (p.liked) createHeartShower(e.clientX, e.clientY);
+        };
+
+        albumGrid.appendChild(card);
       });
     }
 
     /* ==========================================================
-       MODAL DE VISTA (LIGHTBOX)
+       MODAL LIGHTBOX
     ========================================================== */
     const viewModal = document.getElementById('viewModal');
     const mImg = document.getElementById('m-img');
@@ -824,14 +789,13 @@
     viewModal.onclick = (e) => { if (e.target === viewModal) viewModal.classList.remove('active'); };
 
     /* ==========================================================
-       CONTADOR DE ANIVERSARIO (10 de Agosto de 2025)
+       CONTADOR ANIVERSARIO (10 de Agosto de 2025)
     ========================================================== */
-    const relationshipStartDate = '2025-08-10T00:00:00';
+    const relationshipStartDate = new Date('2025-08-10T00:00:00').getTime();
 
     function updateLoveTimer() {
-      const now = new Date();
-      const start = new Date(relationshipStartDate);
-      const diff = Math.max(0, now - start);
+      const now = new Date().getTime();
+      const diff = Math.max(0, now - relationshipStartDate);
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -847,7 +811,7 @@
     updateLoveTimer();
 
     /* ==========================================================
-       ANIMACIÓN DE PÉTALOS Y LUCIÉRNAGAS
+       PÉTALOS Y LUCIÉRNAGAS
     ========================================================== */
     const canvas = document.getElementById('fx-canvas');
     const ctx = canvas.getContext('2d');
@@ -864,12 +828,12 @@
       reset() {
         this.x = Math.random() * width;
         this.y = -20;
-        this.size = Math.random() * 10 + 7;
+        this.size = Math.random() * 10 + 6;
         this.speedY = Math.random() * 1.5 + 0.8;
         this.speedX = (Math.random() - 0.5) * 1.2;
         this.angle = Math.random() * 360;
         this.spin = (Math.random() - 0.5) * 2;
-        this.opacity = Math.random() * 0.5 + 0.4;
+        this.opacity = Math.random() * 0.4 + 0.3;
         this.color = Math.random() > 0.3 ? '#fbbf24' : '#f59e0b';
       }
       update() {
@@ -896,8 +860,8 @@
         this.x = Math.random() * width;
         this.y = Math.random() * height;
         this.size = Math.random() * 2 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
         this.alpha = Math.random();
         this.pulse = Math.random() * 0.03 + 0.01;
       }
@@ -905,7 +869,7 @@
         this.x += this.speedX;
         this.y += this.speedY;
         this.alpha += this.pulse;
-        if (this.alpha <= 0.1 || this.alpha >= 0.9) this.pulse = -this.pulse;
+        if (this.alpha <= 0.1 || this.alpha >= 0.8) this.pulse = -this.pulse;
         if (this.x < 0) this.x = width;
         if (this.x > width) this.x = 0;
         if (this.y < 0) this.y = height;
@@ -914,7 +878,7 @@
       draw() {
         ctx.save();
         ctx.globalAlpha = Math.abs(this.alpha);
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 8;
         ctx.shadowColor = '#fde68a';
         ctx.fillStyle = '#fde68a';
         ctx.beginPath();
@@ -925,7 +889,7 @@
     }
 
     const particles = [];
-    for (let i = 0; i < 22; i++) particles.push(new Petal());
+    for (let i = 0; i < 20; i++) particles.push(new Petal());
     for (let i = 0; i < 25; i++) particles.push(new Firefly());
 
     function animateFX() {
@@ -936,7 +900,7 @@
     animateFX();
 
     /* ==========================================================
-       MÚSICA SINTETIZADA
+       MÚSICA
     ========================================================== */
     let audioCtx = null;
     let isPlaying = false;
@@ -957,7 +921,7 @@
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
         gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.05, audioCtx.currentTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.04, audioCtx.currentTime + 0.1);
         gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
@@ -996,23 +960,23 @@
     document.getElementById('musicToggle').onclick = toggleMusic;
 
     /* ==========================================================
-       EFECTO DE CORAZONES AL DAR CLIC
+       CORAZONES
     ========================================================== */
     function createHeartShower(x, y) {
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 6; i++) {
         const h = document.createElement('div');
         h.innerText = Math.random() > 0.5 ? '💛' : '✨';
         h.style.position = 'fixed';
-        h.style.left = (x || window.innerWidth / 2) + (Math.random() * 50 - 25) + 'px';
-        h.style.top = (y || window.innerHeight / 2) + (Math.random() * 50 - 25) + 'px';
-        h.style.fontSize = Math.random() * 16 + 14 + 'px';
+        h.style.left = (x || window.innerWidth / 2) + (Math.random() * 40 - 20) + 'px';
+        h.style.top = (y || window.innerHeight / 2) + (Math.random() * 40 - 20) + 'px';
+        h.style.fontSize = Math.random() * 14 + 14 + 'px';
         h.style.pointerEvents = 'none';
         h.style.zIndex = '300000';
         h.style.transition = 'all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1)';
         document.body.appendChild(h);
 
         setTimeout(() => {
-          h.style.transform = `translate(${(Math.random() - 0.5) * 100}px, -120px) scale(0)`;
+          h.style.transform = `translate(${(Math.random() - 0.5) * 80}px, -100px) scale(0)`;
           h.style.opacity = '0';
         }, 30);
 
@@ -1024,10 +988,9 @@
       createHeartShower(e.clientX, e.clientY);
       try {
         confetti({
-          particleCount: 60,
-          spread: 70,
-          origin: { y: 0.75 },
-          colors: ['#fbbf24', '#f59e0b', '#e11d48', '#fff']
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.75 }
         });
       } catch(err){}
     };
