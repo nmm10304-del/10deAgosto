@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Mi Niña Hermosa 💛 Flores Amarillas</title>
+  <title>Para el amor de mi vida 💛 Flores Amarillas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
       --primary-glow: #fde68a;
       --accent: #d97706;
       --bg-dark: #0f0b05;
-      --bg-card: rgba(255, 253, 245, 0.95);
+      --bg-card: rgba(255, 253, 245, 0.96);
       --text-main: #271c08;
       --text-muted: #786548;
       --romantic-red: #e11d48;
@@ -79,7 +79,6 @@
       height: 150px;
       position: relative;
       animation: gentlePulse 2s infinite ease-in-out;
-      transform-style: preserve-3d;
       margin-bottom: 30px;
     }
 
@@ -96,7 +95,7 @@
 
     .gift-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2.3rem;
+      font-size: clamp(2rem, 5vw, 2.8rem);
       background: var(--gold-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -107,7 +106,7 @@
     .gift-sub {
       font-size: 1.1rem;
       color: #fde68a;
-      max-width: 420px;
+      max-width: 440px;
       line-height: 1.6;
       font-weight: 300;
     }
@@ -130,7 +129,7 @@
       50% { transform: translateY(-8px); }
     }
 
-    /* CONTENEDOR PRINCIPAL */
+    /* CONTENEDOR */
     .app-container {
       position: relative;
       z-index: 5;
@@ -139,7 +138,7 @@
       padding: 40px 20px 80px 20px;
     }
 
-    /* BARRA SUPERIOR Y MÚSICA */
+    /* BARRA SUPERIOR */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -176,7 +175,7 @@
       font-weight: 600;
     }
 
-    /* HERO & DEDICATORIA */
+    /* HERO */
     .hero {
       text-align: center;
       margin-bottom: 40px;
@@ -184,7 +183,7 @@
 
     .hero-badge {
       display: inline-block;
-      padding: 6px 18px;
+      padding: 6px 20px;
       border-radius: 20px;
       background: rgba(251, 191, 36, 0.15);
       border: 1px solid rgba(251, 191, 36, 0.3);
@@ -197,7 +196,7 @@
 
     .hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      font-size: clamp(2.3rem, 5vw, 4rem);
       color: #fff;
       line-height: 1.15;
       margin-bottom: 15px;
@@ -219,7 +218,7 @@
       margin-bottom: 25px;
     }
 
-    /* CONTADOR DE AMOR */
+    /* CONTADOR */
     .love-timer-card {
       background: rgba(28, 20, 10, 0.7);
       backdrop-filter: blur(12px);
@@ -236,10 +235,6 @@
       font-size: 0.95rem;
       color: #fef08a;
       margin-bottom: 18px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
     }
 
     .timer-units {
@@ -282,36 +277,26 @@
     }
     .change-date-btn:hover { color: #fde68a; }
 
-    /* FILTROS */
-    .category-pills {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
+    /* SECCIÓN NUESTROS MOMENTOS */
+    .section-headline {
+      text-align: center;
+      margin-bottom: 35px;
     }
 
-    .cat-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #d1c0a5;
-      padding: 8px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.3s;
-    }
-
-    .cat-btn.active, .cat-btn:hover {
+    .section-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       background: #f59e0b;
-      border-color: #f59e0b;
-      color: #1e1302;
+      color: #201300;
       font-weight: 600;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
     }
 
-    /* GRID DE FOTOS SCRAPBOOK */
+    /* GRID POLAROID */
     .album-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -327,7 +312,7 @@
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
       position: relative;
       cursor: pointer;
-      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
       transform-style: preserve-3d;
     }
 
@@ -341,8 +326,8 @@
       top: -12px;
       left: 50%;
       transform: translateX(-50%) rotate(-2deg);
-      width: 100px;
-      height: 25px;
+      width: 90px;
+      height: 24px;
       background: rgba(253, 230, 138, 0.7);
       backdrop-filter: blur(2px);
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -383,6 +368,52 @@
       border-radius: 12px;
     }
 
+    /* BOTONES DE LA TARJETA (LIKE Y EDITAR) */
+    .card-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 6px;
+      z-index: 4;
+    }
+
+    .action-icon-btn {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .action-icon-btn:hover {
+      transform: scale(1.15);
+      background: #fff;
+    }
+
+    .action-icon-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #666;
+      transition: fill 0.2s;
+    }
+
+    .action-icon-btn.liked svg {
+      fill: var(--romantic-red);
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.35); }
+    }
+
     .polaroid-footer {
       padding-top: 15px;
       text-align: center;
@@ -402,47 +433,6 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       font-weight: 500;
-    }
-
-    .like-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(255, 255, 255, 0.85);
-      border: none;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      transition: transform 0.2s, background 0.2s;
-      z-index: 3;
-    }
-
-    .like-btn:hover {
-      transform: scale(1.15);
-      background: #fff;
-    }
-
-    .like-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: #ccc;
-      transition: fill 0.2s;
-    }
-
-    .like-btn.liked svg {
-      fill: var(--romantic-red);
-      animation: pop 0.4s ease;
-    }
-
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.35); }
-      100% { transform: scale(1); }
     }
 
     /* CARTA DE AMOR INTERACTIVA */
@@ -524,7 +514,7 @@
       box-shadow: 0 15px 35px rgba(245, 158, 11, 0.6);
     }
 
-    /* MODAL DE IMAGEN COMPLETA */
+    /* MODALES */
     .modal {
       position: fixed;
       inset: 0;
@@ -547,7 +537,7 @@
 
     .modal-content {
       background: var(--bg-card);
-      padding: 20px 20px 28px 20px;
+      padding: 24px;
       border-radius: 12px;
       max-width: 650px;
       width: 100%;
@@ -597,9 +587,29 @@
       color: var(--text-muted);
       font-size: 0.95rem;
       line-height: 1.5;
+      margin-bottom: 15px;
     }
 
-    /* MODAL AÑADIR RECUERDO */
+    .modal-edit-trigger {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .modal-edit-trigger:hover {
+      background: #fde68a;
+    }
+
+    /* FORMULARIOS */
     .form-group {
       margin-bottom: 15px;
       text-align: left;
@@ -628,10 +638,10 @@
     }
 
     @media (max-width: 600px) {
-      .hero-title { font-size: 2.2rem; }
+      .hero-title { font-size: 2.1rem; }
       .unit-num { font-size: 1.5rem; }
       .photo-wrapper { height: 230px; }
-      .modal-img-wrap { height: 260px; }
+      .modal-img-wrap { height: 250px; }
     }
   </style>
 </head>
@@ -639,7 +649,7 @@
 
   <canvas id="fx-canvas"></canvas>
 
-  <!-- PANTALLA DE APERTURA / REGALO -->
+  <!-- PANTALLA INICIAL DE REGALO -->
   <div id="gift-screen">
     <div class="gift-box">
       <svg viewBox="0 0 100 100">
@@ -651,7 +661,7 @@
         <circle cx="50" cy="30" r="6" fill="#fde68a" />
       </svg>
     </div>
-    <h1 class="gift-title">Para la Niña de Mis Ojos</h1>
+    <h1 class="gift-title">Para el amor de mi vida</h1>
     <p class="gift-sub">Hoy el cielo florece de amarillo solo para recordarte lo brillante, dulce y especial que eres en mi vida...</p>
     <div class="tap-hint">Toca aquí para abrir tu sorpresa ✨</div>
   </div>
@@ -659,7 +669,7 @@
   <!-- CONTENIDO PRINCIPAL -->
   <div class="app-container">
     
-    <!-- BARRA DE ACCIÓN SUPERIOR -->
+    <!-- ACCIONES SUPERIORES -->
     <div class="top-bar">
       <button class="music-btn" id="musicToggle">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -678,12 +688,12 @@
 
     <!-- SECCIÓN HERO -->
     <header class="hero">
-      <div class="hero-badge">💛 Nuestro Jardín Secreto 💛</div>
-      <h1 class="hero-title">Flores Amarillas Para <span>Mi Amor</span></h1>
+      <div class="hero-badge">💛 Nuestro Jardín de Amor 💛</div>
+      <h1 class="hero-title">Flores Amarillas Para <span>Mi Vida Entera</span></h1>
       <p class="hero-quote">"Amarte es encontrar un campo dorado donde siempre quiero quedarme..."</p>
     </header>
 
-    <!-- CONTADOR DE TIEMPO DE NOVIOS -->
+    <!-- CONTADOR DE AMOR -->
     <div class="love-timer-card">
       <div class="timer-header">
         <span>✨ Tiempo haciéndome la persona más feliz del mundo:</span>
@@ -709,30 +719,28 @@
       <button class="change-date-btn" id="editDateBtn">⚙️ Ajustar nuestra fecha de aniversario</button>
     </div>
 
-    <!-- FILTROS DE CATEGORÍA -->
-    <div class="category-pills">
-      <button class="cat-btn active" data-cat="all">Todas las Flores 🌼</button>
-      <button class="cat-btn" data-cat="girasoles">Girasoles 🌻</button>
-      <button class="cat-btn" data-cat="rosas">Rosas & Tulipanes 🌷</button>
-      <button class="cat-btn" data-cat="silvestres">Silvestres 🌾</button>
-      <button class="cat-btn" data-cat="recuerdos">Nuestros Momentos 📸</button>
+    <!-- SECCIÓN ÚNICA: NUESTROS MOMENTOS -->
+    <div class="section-headline">
+      <div class="section-pill">
+        <span>📸 Nuestros Momentos 💛</span>
+      </div>
     </div>
 
     <!-- GRID DE POLAROIDS -->
     <div class="album-grid" id="albumGrid"></div>
 
-    <!-- CARTA DE AMOR INTERACTIVA -->
+    <!-- CARTA DE AMOR -->
     <section class="love-letter-section">
-      <div class="wax-seal" id="sealAction" title="Toca el sello de cera">
+      <div class="wax-seal" id="sealAction" title="Toca el sello">
         <svg viewBox="0 0 24 24">
           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
       </div>
       <h2 class="letter-title">¿Por qué flores amarillas para ti?</h2>
       <p class="letter-body">
-        Las flores amarillas no son una simple tradición de septiembre: simbolizan la luz que trajiste a mi vida, la alegría sincera de tus risas y la promesa de acompañarte, cuidarte y elegirte todos los días. 
+        Las flores amarillas no son una simple tradición: simbolizan la luz que trajiste a mi vida, la complicidad de cada risa jugando juntos, cada café compartido y la promesa de elegirte todos los días.
         <br><br>
-        Cada pétalo dorado en este álbum lleva un latido mío pensando en ti. Gracias por ser mi lugar seguro y la razón por la que mi corazón late siempre con una sonrisa.
+        Cada foto en este álbum guarda un pedacito de nuestra historia. Gracias por ser mi persona favorita y la dueña de mi corazón.
       </p>
       <div class="letter-signature">Por y para siempre, Yo 💛</div>
       <div>
@@ -750,38 +758,68 @@
         <img id="m-img" src="" alt="Recuerdo">
       </div>
       <h3 class="modal-caption" id="m-caption"></h3>
+      <div class="polaroid-date" id="m-date" style="margin-bottom: 10px;"></div>
       <p class="modal-desc" id="m-desc"></p>
+      <button class="modal-edit-trigger" id="btnEditInsideModal">
+        ✏️ Editar este recuerdo
+      </button>
     </div>
   </div>
 
-  <!-- MODAL PARA AGREGAR NUEVA FOTO -->
+  <!-- MODAL DE EDICIÓN DE TEXTOS (ANTES O DESPUÉS DEL CLICK) -->
+  <div class="modal" id="editModal">
+    <div class="modal-content" style="max-width: 480px;">
+      <button class="modal-close" id="closeEditModal">&times;</button>
+      <h3 style="color:#2b1a03; font-family:'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 20px;">
+        ✏️ Editar Texto del Recuerdo
+      </h3>
+      
+      <input type="hidden" id="edit-id" />
+
+      <div class="form-group">
+        <label>Título o Frase (Letra Manuscrita):</label>
+        <input type="text" id="edit-title" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>Fecha o Subtítulo:</label>
+        <input type="text" id="edit-date" class="form-input" />
+      </div>
+
+      <div class="form-group">
+        <label>Dedicatoria / Lo que sentiste:</label>
+        <textarea id="edit-desc" class="form-input" rows="4"></textarea>
+      </div>
+
+      <button class="kiss-btn" id="btnSaveEdit" style="width:100%;">Guardar Cambios ✨</button>
+    </div>
+  </div>
+
+  <!-- MODAL AÑADIR NUEVA FOTO -->
   <div class="modal" id="addModal">
     <div class="modal-content" style="max-width: 480px;">
       <button class="modal-close" id="closeAddModal">&times;</button>
-      <h3 style="color:#2b1a03; font-family:'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 20px;">Subir Nuevo Recuerdo</h3>
+      <h3 style="color:#2b1a03; font-family:'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 20px;">
+        Subir Nuevo Momento
+      </h3>
       
       <div class="form-group">
-        <label>Título o Frase de Amor:</label>
-        <input type="text" id="inp-title" class="form-input" placeholder="Ej: Nuestra tarde inolvidable..." />
+        <label>Título o Frase:</label>
+        <input type="text" id="inp-title" class="form-input" placeholder="Ej: Nuestra tarde jugando juntos..." />
       </div>
 
       <div class="form-group">
-        <label>Categoría:</label>
-        <select id="inp-cat" class="form-input">
-          <option value="recuerdos">Nuestros Momentos 📸</option>
-          <option value="girasoles">Girasoles 🌻</option>
-          <option value="rosas">Rosas & Tulipanes 🌷</option>
-          <option value="silvestres">Silvestres 🌾</option>
-        </select>
+        <label>Fecha o Subtítulo:</label>
+        <input type="text" id="inp-date" class="form-input" placeholder="Ej: Septiembre 2026 / Para Siempre" />
       </div>
 
       <div class="form-group">
-        <label>Foto desde tu galería o archivo:</label>
+        <label>Foto desde tu galería o computadora:</label>
         <input type="file" id="inp-file" accept="image/*" class="form-input" />
       </div>
 
       <div class="form-group">
-        <label>O pega el link (URL) de una imagen:</label>
+        <label>O pega el enlace URL de la imagen:</label>
         <input type="url" id="inp-url" class="form-input" placeholder="https://..." />
       </div>
 
@@ -790,114 +828,117 @@
         <textarea id="inp-desc" class="form-input" rows="3" placeholder="Escribe lo que sentiste ese día..."></textarea>
       </div>
 
-      <button class="kiss-btn" id="btnSaveMemory" style="width:100%;">Guardar en el Álbum</button>
+      <button class="kiss-btn" id="btnSaveMemory" style="width:100%;">Guardar en Nuestros Momentos</button>
     </div>
   </div>
 
   <script>
     /* ==========================================================
-       DATOS INICIALES DEL ÁLBUM
+       DATOS: FOTOS CENTRADAS EN "NUESTROS MOMENTOS" (GAMES, CAFÉ, ETC)
     ========================================================== */
     const initialPhotos = [
       {
         id: 1,
-        cat: 'girasoles',
-        title: 'Tu sonrisa que ilumina',
-        date: 'Septiembre 2026',
-        desc: 'Así como los girasoles buscan la luz del sol, mis ojos siempre te buscan a ti entre cualquier multitud.',
-        img: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80',
+        title: 'Libre y Hermosa',
+        date: 'CADA AMANECER',
+        desc: 'Nuestras tardes de risas, jugando juntos, donde el tiempo pasa volando y el único premio que me importa es verte feliz.',
+        img: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=800&q=80', // Mando gamer
         liked: true
       },
       {
         id: 2,
-        cat: 'rosas',
-        title: 'La dulzura de tu abrazo',
-        date: 'Para Siempre',
-        desc: 'Rosas amarillas que guardan el perfume del cariño más puro y sincero que he sentido jamás.',
-        img: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80',
-        liked: false
-      },
-      {
-        id: 3,
-        cat: 'silvestres',
-        title: 'Libre y Hermosa',
-        date: 'Cada Amanecer',
-        desc: 'Flores libres que nacen con fuerza, tan auténticas y perfectas como lo eres tú a cada segundo.',
-        img: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80',
+        title: 'Tu sonrisa que ilumina',
+        date: 'SEPTIEMBRE 2026',
+        desc: 'Así como los girasoles buscan la luz del sol, mis ojos siempre te buscan a ti entre cualquier multitud.',
+        img: 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80', // Girasol
         liked: true
       },
       {
-        id: 4,
-        cat: 'girasoles',
-        title: 'Un Mar Dorado Para Ti',
-        date: 'Mi Lugar Favorito',
-        desc: 'Caminaría contigo por cualquier sendero, con tal de verte sonreír como la reina que eres.',
-        img: 'https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=800&q=80',
+        id: 3,
+        title: 'La dulzura de tu abrazo',
+        date: 'PARA SIEMPRE',
+        desc: 'Mirar el cielo estrellado a tu lado y sentir que todo en el universo encaja en su lugar.',
+        img: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80', // Noche estrellada
         liked: false
       },
       {
+        id: 4,
+        title: 'Tardes de Café y Charlas',
+        date: 'NUESTRO LUGAR SECRETO',
+        desc: 'Un café caliente y horas de plática que se sienten como minutos. Contigo no existe el aburrimiento.',
+        img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80', // Café cómplice
+        liked: true
+      },
+      {
         id: 5,
-        cat: 'rosas',
-        title: 'Tulipanes de Oro',
-        date: 'Contigo Todo',
-        desc: 'Símbolo del renacer, de la primavera en mi pecho y de la alegría infinita de tenerte a mi lado.',
-        img: 'https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=80',
+        title: 'Flores Amarillas Para Ti',
+        date: 'CADA SEPTIEMBRE',
+        desc: 'Un ramo entero de amor para recordarte lo radiante que eres en mi vida.',
+        img: 'https://images.unsplash.com/photo-1520763185298-1b434c919102?auto=format&fit=crop&w=800&q=80', // Tulipanes amarillos
         liked: true
       },
       {
         id: 6,
-        cat: 'recuerdos',
-        title: 'Nuestra Historia de Amor',
-        date: 'El Mejor Capítulo',
-        desc: 'El primer recuerdo de tantos que aún nos quedan por escribir juntos de la mano.',
-        img: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80',
-        liked: false
+        title: 'Caminando de la Mano',
+        date: 'EL MEJOR CAMINO',
+        desc: 'No importa a dónde vayamos, mi destino favorito siempre es a tu lado.',
+        img: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80', // Manos tomadas
+        liked: true
       }
     ];
 
-    // Cargar fotos guardadas en LocalStorage si existen
-    let photos = JSON.parse(localStorage.getItem('yellow_flora_photos')) || initialPhotos;
+    let photos = JSON.parse(localStorage.getItem('yellow_flora_nuestros_momentos')) || initialPhotos;
+    let activeViewingId = null;
 
     /* ==========================================================
-       RENDERIZADO DEL ÁLBUM SCRAPBOOK CON FÍSICA 3D TILT
+       RENDERIZADO DEL ÁLBUM POLAROID
     ========================================================== */
     const albumGrid = document.getElementById('albumGrid');
 
-    function renderAlbum(filter = 'all') {
+    function renderAlbum() {
       albumGrid.innerHTML = '';
-      const filtered = filter === 'all' ? photos : photos.filter(p => p.cat === filter);
 
-      filtered.forEach((p, idx) => {
-        const rot = ((idx % 5) - 2) * 2.5; // ligera rotación polaroid aleatoria
+      photos.forEach((p, idx) => {
+        const rot = ((idx % 5) - 2) * 2.2;
         const card = document.createElement('div');
         card.className = 'polaroid-card';
         card.style.transform = `rotate(${rot}deg)`;
 
         card.innerHTML = `
           <div class="washi-tape"></div>
-          <button class="like-btn ${p.liked ? 'liked' : ''}" data-id="${p.id}" title="Me encanta">
-            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-          </button>
+          
+          <div class="card-actions">
+            <!-- BOTÓN EDITAR ANTES DE DAR CLICK -->
+            <button class="action-icon-btn edit-btn" data-id="${p.id}" title="Editar texto de esta foto">
+              <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            </button>
+            <!-- BOTÓN LIKE -->
+            <button class="action-icon-btn like-btn ${p.liked ? 'liked' : ''}" data-id="${p.id}" title="Me encanta">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+          </div>
+
           <div class="photo-wrapper" onclick="openPhotoModal(${p.id})">
             <img src="${p.img}" alt="${p.title}" loading="lazy" />
             <span class="photo-badge">🌼 Ver</span>
           </div>
+
           <div class="polaroid-footer" onclick="openPhotoModal(${p.id})">
             <div class="polaroid-title">${p.title}</div>
             <div class="polaroid-date">${p.date}</div>
           </div>
         `;
 
-        // Efecto 3D Tilt al pasar el mouse
+        // 3D Tilt
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-          const rotateX = ((y - centerY) / centerY) * -12;
-          const rotateY = ((x - centerX) / centerX) * 12;
-          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
+          const rotateX = ((y - centerY) / centerY) * -10;
+          const rotateY = ((x - centerX) / centerX) * 10;
+          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
         });
 
         card.addEventListener('mouseleave', () => {
@@ -907,7 +948,16 @@
         albumGrid.appendChild(card);
       });
 
-      // Like listener
+      // Evento Editar desde la tarjeta (antes de hacer click a la foto)
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = parseInt(btn.dataset.id);
+          openEditModal(id);
+        });
+      });
+
+      // Evento Like
       document.querySelectorAll('.like-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -916,35 +966,34 @@
           if (target) {
             target.liked = !target.liked;
             btn.classList.toggle('liked', target.liked);
-            localStorage.setItem('yellow_flora_photos', JSON.stringify(photos));
+            savePhotos();
             if (target.liked) createHeartShower(e.clientX, e.clientY);
           }
         });
       });
     }
 
-    /* FILTROS */
-    document.querySelectorAll('.cat-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderAlbum(btn.dataset.cat);
-      });
-    });
+    function savePhotos() {
+      localStorage.setItem('yellow_flora_nuestros_momentos', JSON.stringify(photos));
+    }
 
     /* ==========================================================
-       MODAL DE VISTA (LIGHTBOX)
+       MODAL DE VISTA DETALLADA
     ========================================================== */
     const viewModal = document.getElementById('viewModal');
     const mImg = document.getElementById('m-img');
     const mCaption = document.getElementById('m-caption');
+    const mDate = document.getElementById('m-date');
     const mDesc = document.getElementById('m-desc');
+    const btnEditInsideModal = document.getElementById('btnEditInsideModal');
 
     window.openPhotoModal = function(id) {
       const p = photos.find(item => item.id === id);
       if (!p) return;
+      activeViewingId = id;
       mImg.src = p.img;
       mCaption.innerText = p.title;
+      mDate.innerText = p.date;
       mDesc.innerText = p.desc;
       viewModal.classList.add('active');
     };
@@ -952,8 +1001,59 @@
     document.getElementById('closeViewModal').onclick = () => viewModal.classList.remove('active');
     viewModal.onclick = (e) => { if (e.target === viewModal) viewModal.classList.remove('active'); };
 
+    // Editar desde adentro del modal
+    btnEditInsideModal.onclick = () => {
+      if (activeViewingId) {
+        openEditModal(activeViewingId);
+      }
+    };
+
     /* ==========================================================
-       MODAL PARA AÑADIR NUEVAS FOTOS
+       MODAL DE EDICIÓN DE TEXTO
+    ========================================================== */
+    const editModal = document.getElementById('editModal');
+    const editId = document.getElementById('edit-id');
+    const editTitle = document.getElementById('edit-title');
+    const editDate = document.getElementById('edit-date');
+    const editDesc = document.getElementById('edit-desc');
+
+    function openEditModal(id) {
+      const p = photos.find(item => item.id === id);
+      if (!p) return;
+      editId.value = p.id;
+      editTitle.value = p.title;
+      editDate.value = p.date;
+      editDesc.value = p.desc;
+      editModal.classList.add('active');
+    }
+
+    document.getElementById('closeEditModal').onclick = () => editModal.classList.remove('active');
+    editModal.onclick = (e) => { if (e.target === editModal) editModal.classList.remove('active'); };
+
+    document.getElementById('btnSaveEdit').onclick = () => {
+      const id = parseInt(editId.value);
+      const target = photos.find(item => item.id === id);
+      if (target) {
+        target.title = editTitle.value.trim() || 'Nuestro Momento';
+        target.date = editDate.value.trim() || 'Para Siempre';
+        target.desc = editDesc.value.trim() || 'Un instante que guardo en el corazón.';
+        savePhotos();
+        renderAlbum();
+
+        // Si el visor ampliado está abierto, refrescar sus textos
+        if (viewModal.classList.contains('active') && activeViewingId === id) {
+          mCaption.innerText = target.title;
+          mDate.innerText = target.date;
+          mDesc.innerText = target.desc;
+        }
+
+        editModal.classList.remove('active');
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+      }
+    };
+
+    /* ==========================================================
+       MODAL AÑADIR NUEVA FOTO
     ========================================================== */
     const addModal = document.getElementById('addModal');
     document.getElementById('openAddModal').onclick = () => addModal.classList.add('active');
@@ -965,37 +1065,34 @@
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = function(evt) {
-          selectedBase64 = evt.target.result;
-        };
+        reader.onload = function(evt) { selectedBase64 = evt.target.result; };
         reader.readAsDataURL(file);
       }
     });
 
     document.getElementById('btnSaveMemory').addEventListener('click', () => {
-      const title = document.getElementById('inp-title').value.trim() || 'Nuestro Amor Dorado';
-      const cat = document.getElementById('inp-cat').value;
+      const title = document.getElementById('inp-title').value.trim() || 'Nuestro Momento Especial';
+      const date = document.getElementById('inp-date').value.trim() || 'Inolvidable';
       const url = document.getElementById('inp-url').value.trim();
       const desc = document.getElementById('inp-desc').value.trim() || 'Un momento guardado para toda la eternidad.';
       const finalImg = selectedBase64 || url || 'https://images.unsplash.com/photo-1597848212624-a19eb35e2651?auto=format&fit=crop&w=800&q=80';
 
       const newPhoto = {
         id: Date.now(),
-        cat,
         title,
-        date: 'Recuerdo Guardado',
+        date,
         desc,
         img: finalImg,
         liked: true
       };
 
       photos.unshift(newPhoto);
-      localStorage.setItem('yellow_flora_photos', JSON.stringify(photos));
+      savePhotos();
       renderAlbum();
       addModal.classList.remove('active');
 
-      // Limpiar inputs
       document.getElementById('inp-title').value = '';
+      document.getElementById('inp-date').value = '';
       document.getElementById('inp-url').value = '';
       document.getElementById('inp-desc').value = '';
       document.getElementById('inp-file').value = '';
@@ -1005,7 +1102,7 @@
     });
 
     /* ==========================================================
-       CONTADOR DE AMOR (PERSONALIZABLE)
+       CONTADOR DE NOVIOS
     ========================================================== */
     let relationshipStartDate = localStorage.getItem('love_anniversary_date') || '2023-09-21T00:00:00';
 
@@ -1028,7 +1125,7 @@
     updateLoveTimer();
 
     document.getElementById('editDateBtn').addEventListener('click', () => {
-      const newD = prompt('Ingresa la fecha en la que se hicieron novios (Formato AAAA-MM-DD):', relationshipStartDate.split('T')[0]);
+      const newD = prompt('Ingresa la fecha de aniversario (AAAA-MM-DD):', relationshipStartDate.split('T')[0]);
       if (newD && !isNaN(new Date(newD))) {
         relationshipStartDate = newD + 'T00:00:00';
         localStorage.setItem('love_anniversary_date', relationshipStartDate);
@@ -1037,7 +1134,7 @@
     });
 
     /* ==========================================================
-       LIENZO INTERACTIVO: PÉTALOS Y LUCIÉRNAGAS
+       PÉTALOS Y LUCIÉRNAGAS
     ========================================================== */
     const canvas = document.getElementById('fx-canvas');
     const ctx = canvas.getContext('2d');
@@ -1050,9 +1147,7 @@
     });
 
     class Petal {
-      constructor() {
-        this.reset();
-      }
+      constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * width;
         this.y = -20;
@@ -1117,32 +1212,28 @@
     }
 
     const particles = [];
-    for (let i = 0; i < 28; i++) particles.push(new Petal());
-    for (let i = 0; i < 35; i++) particles.push(new Firefly());
+    for (let i = 0; i < 26; i++) particles.push(new Petal());
+    for (let i = 0; i < 30; i++) particles.push(new Firefly());
 
     function animateFX() {
       ctx.clearRect(0, 0, width, height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
+      particles.forEach(p => { p.update(); p.draw(); });
       requestAnimationFrame(animateFX);
     }
     animateFX();
 
     /* ==========================================================
-       MÚSICA SINTETIZADA CON WEB AUDIO API (RELAJANTE & ROMÁNTICA)
+       MÚSICA SINTETIZADA
     ========================================================== */
     let audioCtx = null;
     let isPlaying = false;
     let musicInterval = null;
 
-    // Progresión romántica (Do Mayor / La menor dulce)
     const melodyNotes = [
-      261.63, 329.63, 392.00, 523.25, // C - E - G - C
-      220.00, 261.63, 329.63, 440.00, // A - C - E - A
-      174.61, 220.00, 261.63, 349.23, // F - A - C - F
-      196.00, 246.94, 293.66, 392.00  // G - B - D - G
+      261.63, 329.63, 392.00, 523.25,
+      220.00, 261.63, 329.63, 440.00,
+      174.61, 220.00, 261.63, 349.23,
+      196.00, 246.94, 293.66, 392.00
     ];
 
     function playTone(freq, duration = 1.2) {
@@ -1150,17 +1241,13 @@
       try {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
         gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.06, audioCtx.currentTime + 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.05, audioCtx.currentTime + 0.1);
         gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-
         osc.start();
         osc.stop(audioCtx.currentTime + duration);
       } catch (e) {
@@ -1195,48 +1282,26 @@
         clearInterval(musicInterval);
       }
     }
-
     document.getElementById('musicToggle').onclick = toggleMusic;
 
     /* ==========================================================
-       PANTALLA DE REGALO (UNBOXING) Y CONFETI
+       UNBOXING Y CONFETI
     ========================================================== */
     const giftScreen = document.getElementById('gift-screen');
     giftScreen.addEventListener('click', () => {
       giftScreen.classList.add('hidden');
-      
-      // Iniciar música automáticamente si es posible
       try { toggleMusic(); } catch(e){}
 
-      // Explosión de confeti dorado
       const end = Date.now() + 2500;
       const colors = ['#f59e0b', '#fbbf24', '#fde68a', '#ffffff', '#e11d48'];
 
       (function frame() {
-        confetti({
-          particleCount: 5,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-          colors: colors
-        });
-        confetti({
-          particleCount: 5,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-          colors: colors
-        });
-
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
-        }
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors });
+        if (Date.now() < end) requestAnimationFrame(frame);
       }());
     });
 
-    /* ==========================================================
-       CORAZONES FLOTANTES AL DAR AMOR
-    ========================================================== */
     function createHeartShower(x, y) {
       for (let i = 0; i < 8; i++) {
         const h = document.createElement('div');
@@ -1274,7 +1339,7 @@
       confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
     };
 
-    // Inicializar
+    // Iniciar
     renderAlbum();
   </script>
 </body>
