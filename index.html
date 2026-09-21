@@ -244,7 +244,7 @@
 
     .unit-num {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.3rem, 3.8vw, 1.7rem);
+      font-size: clamp(1.2rem, 3.8vw, 1.7rem);
       font-weight: 700;
       color: #fbbf24;
       display: block;
@@ -629,8 +629,10 @@
   </div>
 
   <script>
-    // Se limpia cualquier residuo anterior para forzar la carga correcta de tus 6 fotos reales
-    localStorage.removeItem('yellow_flora_nuestros_momentos');
+    // Se limpia cualquier residuo previo en memoria
+    try {
+      localStorage.removeItem('yellow_flora_nuestros_momentos');
+    } catch(e){}
 
     const photos = [
       {
@@ -638,7 +640,7 @@
         title: "Fotos de bebés",
         date: "2000",
         desc: "Y pensar que aquella imagen es uno de los recuerdos muy bonito que hiciste.",
-        img: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80",
+        img: "foto1.jpg",
         liked: true
       },
       {
@@ -646,7 +648,7 @@
         title: "Nuestro Point",
         date: "2026",
         desc: "Pensar que sería mi lugar favorito contigo para nuestra grasita, el disfrutar del ambiente y lo rico que hacen.",
-        img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+        img: "foto2.jpg",
         liked: true
       },
       {
@@ -654,7 +656,7 @@
         title: "Promart",
         date: "Donde nos conocimos",
         desc: "Abril-2025 fue el mes y año en donde todo cambio para los dos, de una salida a llegar a enamorándonos.",
-        img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=800&q=80",
+        img: "foto3.jpg",
         liked: true
       },
       {
@@ -662,7 +664,7 @@
         title: "Atardecer",
         date: "PLAYA",
         desc: "El día que cumplimos un año y lo pasamos viendo el atardecer del sol, y pensar que ya vamos más de un año que me has hecho hacer mil cosas <3.",
-        img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+        img: "foto4.jpg",
         liked: true
       },
       {
@@ -670,7 +672,7 @@
         title: "Cine",
         date: "Nuestro lugar de relajo",
         desc: "Amo el disfrutar mi tarde viendo películas contigo, porque también nos despeja el día malo o pesado que tuvimos pero ese corto tiempo amo demasiado compartirlo a tu lado :)",
-        img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80",
+        img: "foto5.jpg",
         liked: true
       },
       {
@@ -678,7 +680,7 @@
         title: "Paseo",
         date: "10/10",
         desc: "Me gusta mucho cuando salimos y sentir que tengo al amor de mi vida junto a mi es algo que no quisiera perder, por más renegona y que te molestas rápido aún asi te amo.\nGracias por llegar a mi vida >3",
-        img: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80",
+        img: "foto6.jpg",
         liked: true
       }
     ];
@@ -688,7 +690,7 @@
       if (screen) {
         screen.style.display = 'none';
       }
-      window.scrollTo(0, 0); // Vuelve al tope de la pantalla para que no se corte el título
+      window.scrollTo(0, 0);
 
       try { toggleMusic(); } catch(e) {}
       try {
