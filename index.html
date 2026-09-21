@@ -360,15 +360,18 @@
       position: absolute;
       bottom: 10px;
       right: 10px;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.65);
       backdrop-filter: blur(4px);
       color: #fff;
       font-size: 0.75rem;
       padding: 4px 10px;
       border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    /* BOTONES DE LA TARJETA (LIKE Y EDITAR) */
+    /* BOTONES SUPERIORES DE LA TARJETA (CAMBIAR FOTO, EDITAR TEXTO, LIKE) */
     .card-actions {
       position: absolute;
       top: 10px;
@@ -379,7 +382,7 @@
     }
 
     .action-icon-btn {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       border: none;
       width: 34px;
       height: 34px;
@@ -388,7 +391,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
       transition: transform 0.2s, background 0.2s;
     }
 
@@ -400,7 +403,7 @@
     .action-icon-btn svg {
       width: 18px;
       height: 18px;
-      fill: #666;
+      fill: #4b3820;
       transition: fill 0.2s;
     }
 
@@ -611,10 +614,9 @@
       background: #fde68a;
     }
 
-    /* PREVIEW DE IMAGEN EN EDICIÓN */
     .edit-img-preview-box {
       width: 100%;
-      height: 160px;
+      height: 180px;
       border-radius: 8px;
       overflow: hidden;
       margin-bottom: 15px;
@@ -670,6 +672,9 @@
 <body>
 
   <canvas id="fx-canvas"></canvas>
+
+  <!-- INPUT OCULTO PARA CAMBIO DIRECTO DE FOTO DESDE LA TARJETA -->
+  <input type="file" id="direct-file-input" accept="image/*" style="display: none;" />
 
   <!-- PANTALLA INICIAL DE REGALO -->
   <div id="gift-screen">
@@ -805,7 +810,7 @@
       </div>
 
       <div class="form-group">
-        <label>Cambiar foto desde tu dispositivo:</label>
+        <label>Cambiar foto desde tu celular o computadora:</label>
         <input type="file" id="edit-file" accept="image/*" class="form-input" />
       </div>
 
@@ -872,7 +877,7 @@
 
   <script>
     /* ==========================================================
-       DATOS INICIALES
+       DATOS INICIALES (MOMENTOS CON PLAYSTATION / GAMING, CAFÉ, FLORES)
     ========================================================== */
     const initialPhotos = [
       {
@@ -927,9 +932,10 @@
 
     let photos = JSON.parse(localStorage.getItem('yellow_flora_nuestros_momentos')) || initialPhotos;
     let activeViewingId = null;
+    let directChangeTargetId = null;
 
     /* ==========================================================
-       RENDERIZADO DE POLAROIDS
+       RENDERIZADO DE POLAROIDS CON CAMBIO RÁPIDO DE FOTO
     ========================================================== */
     const albumGrid = document.getElementById('albumGrid');
 
@@ -946,11 +952,17 @@
           <div class="washi-tape"></div>
           
           <div class="card-actions">
-            <!-- BOTÓN EDITAR FOTO/TEXTO -->
-            <button class="action-icon-btn edit-btn" data-id="${p.id}" title="Editar foto o texto">
+            <!-- 1. CAMBIAR FOTO DIRECTAMENTE (CÁMARA) -->
+            <button class="action-icon-btn change-pic-btn" data-id="${p.id}" title="Cambiar imagen de esta tarjeta">
+              <svg viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
+            </button>
+
+            <!-- 2. EDITAR TEXTO (LÁPIZ) -->
+            <button class="action-icon-btn edit-btn" data-id="${p.id}" title="Editar texto y dedicatoria">
               <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
             </button>
-            <!-- BOTÓN LIKE -->
+
+            <!-- 3. CORAZÓN / LIKE -->
             <button class="action-icon-btn like-btn ${p.liked ? 'liked' : ''}" data-id="${p.id}" title="Me encanta">
               <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
             </button>
@@ -985,7 +997,16 @@
         albumGrid.appendChild(card);
       });
 
-      // Listener Editar
+      // Botón 📷: Abrir selector de archivos al instante
+      document.querySelectorAll('.change-pic-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          directChangeTargetId = parseInt(btn.dataset.id);
+          document.getElementById('direct-file-input').click();
+        });
+      });
+
+      // Botón ✏️: Abrir editor de textos
       document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -994,7 +1015,7 @@
         });
       });
 
-      // Listener Like
+      // Botón ❤️: Like
       document.querySelectorAll('.like-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -1009,6 +1030,25 @@
         });
       });
     }
+
+    // Manejar el archivo seleccionado directamente desde la tarjeta
+    document.getElementById('direct-file-input').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file && directChangeTargetId) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const target = photos.find(item => item.id === directChangeTargetId);
+          if (target) {
+            target.img = evt.target.result;
+            savePhotos();
+            renderAlbum();
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+      this.value = ''; // Reset
+    });
 
     function savePhotos() {
       localStorage.setItem('yellow_flora_nuestros_momentos', JSON.stringify(photos));
@@ -1043,7 +1083,7 @@
     };
 
     /* ==========================================================
-       MODAL DE EDICIÓN: IMAGEN + TEXTOS
+       MODAL DE EDICIÓN (IMAGEN + TEXTOS)
     ========================================================== */
     const editModal = document.getElementById('editModal');
     const editId = document.getElementById('edit-id');
@@ -1066,12 +1106,11 @@
       editUrl.value = '';
       editFile.value = '';
       currentEditedBase64 = null;
-      editPreviewImg.src = p.img; // Mostrar foto actual
+      editPreviewImg.src = p.img;
 
       editModal.classList.add('active');
     }
 
-    // Previsualizar si sube archivo desde el dispositivo
     editFile.addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file) {
@@ -1084,7 +1123,6 @@
       }
     });
 
-    // Previsualizar si escribe o pega URL
     editUrl.addEventListener('input', function() {
       if (editUrl.value.trim().length > 5) {
         editPreviewImg.src = editUrl.value.trim();
@@ -1102,7 +1140,6 @@
         target.date = editDate.value.trim() || 'Para Siempre';
         target.desc = editDesc.value.trim() || 'Un instante que guardo en el corazón.';
 
-        // Si se subió o cambió la imagen:
         if (currentEditedBase64) {
           target.img = currentEditedBase64;
         } else if (editUrl.value.trim()) {
@@ -1112,7 +1149,6 @@
         savePhotos();
         renderAlbum();
 
-        // Si la foto estaba abierta en el modal ampliado, actualizarla en vivo
         if (viewModal.classList.contains('active') && activeViewingId === id) {
           mImg.src = target.img;
           mCaption.innerText = target.title;
@@ -1412,7 +1448,7 @@
       confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
     };
 
-    // Iniciar
+    // Iniciar renderizado
     renderAlbum();
   </script>
 </body>
